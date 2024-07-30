@@ -34,6 +34,7 @@ int main(){
         window.draw(Background);
         window.draw(Base.show());
         Player.updateVelocity();
+        Player.checkColissions();
         window.draw(Player.show());
         window.display();
     }

@@ -3,8 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Player
-{
+class Player {
 private:
     float life;
     float xp;
@@ -23,6 +22,7 @@ public:
     sf::CircleShape show();
     void processEvents(sf::Keyboard::Key key, bool isPressed);
     void updateVelocity();
+    void checkColissions();
 };
 
 Player::Player(){
@@ -79,6 +79,22 @@ void Player::updateVelocity(){
         this->velocity.x += 0.25f;
     }
     this->PlayerShape.move(velocity);
+}
+
+void Player::checkColissions(){
+        if(this->PlayerShape.getPosition().x < 20.f){
+            this->PlayerShape.setPosition(20.f, this->PlayerShape.getPosition().y); // Teleporta o shape para a direita se ultrapassar o limite esquerdo
+        }
+        if(this->PlayerShape.getPosition().x > 780.f){
+            this->PlayerShape.setPosition(780.f, this->PlayerShape.getPosition().y); // Teleporta o shape para a esquerda se ultrapassar o limite direito
+        }
+        if(this->PlayerShape.getPosition().y < 20.f){
+            this->PlayerShape.setPosition(this->PlayerShape.getPosition().x, 20.f);
+        }
+        if(this->PlayerShape.getPosition().y > 580.f){
+            this->PlayerShape.setPosition(this->PlayerShape.getPosition().x, 580.f);
+        }
+
 }
 
 #endif
