@@ -2,6 +2,8 @@
 #define PLAYER_HPP
 
 #include <SFML/Graphics.hpp>
+#include "Bullet.hpp"
+#include <vector>
 
 class Player {
 private:
@@ -9,6 +11,8 @@ private:
     float xp;
     float cadence;
     sf::Vector2f velocity;
+    bullet b1;
+    std::vector<bullet> bullets;
     int ammo;
     sf::CircleShape PlayerShape;
     bool up;
@@ -22,7 +26,11 @@ public:
     sf::CircleShape show();
     void processEvents(sf::Keyboard::Key key, bool isPressed);
     void updateVelocity();
-    void checkColissions();
+    void checkCollisions();
+    void startAmmo();
+    void shootBullet(sf::Vector2f aimDirNorm);
+    void updateBullets();
+    void drawBullets(sf::RenderWindow &window);
 };
 
 Player::Player(){
@@ -81,20 +89,50 @@ void Player::updateVelocity(){
     this->PlayerShape.move(velocity);
 }
 
-void Player::checkColissions(){
-        if(this->PlayerShape.getPosition().x < 20.f){
-            this->PlayerShape.setPosition(20.f, this->PlayerShape.getPosition().y); // Teleporta o shape para a direita se ultrapassar o limite esquerdo
-        }
-        if(this->PlayerShape.getPosition().x > 780.f){
-            this->PlayerShape.setPosition(780.f, this->PlayerShape.getPosition().y); // Teleporta o shape para a esquerda se ultrapassar o limite direito
-        }
-        if(this->PlayerShape.getPosition().y < 20.f){
-            this->PlayerShape.setPosition(this->PlayerShape.getPosition().x, 20.f);
-        }
-        if(this->PlayerShape.getPosition().y > 580.f){
-            this->PlayerShape.setPosition(this->PlayerShape.getPosition().x, 580.f);
-        }
+void Player::checkCollisions(){
+    if(this->PlayerShape.getPosition().x < 20.f){
+        this->PlayerShape.setPosition(20.f, this->PlayerShape.getPosition().y); // Teleporta o shape para a direita se ultrapassar o limite esquerdo
+    }
+    if(this->PlayerShape.getPosition().x > 780.f){
+        this->PlayerShape.setPosition(780.f, this->PlayerShape.getPosition().y); // Teleporta o shape para a esquerda se ultrapassar o limite direito
+    }
+    if(this->PlayerShape.getPosition().y < 20.f){
+        this->PlayerShape.setPosition(this->PlayerShape.getPosition().x, 20.f);
+    }
+    if(this->PlayerShape.getPosition().y > 580.f){
+        this->PlayerShape.setPosition(this->PlayerShape.getPosition().x, 580.f);
+    }
+}
 
+void Player::startAmmo(){
+    this->bullets.push_back(this->b1);
+}
+
+void Player::shootBullet(sf::Vector2f aimDirNorm){
+    if(ammo == 0){
+        std::cout << "n tem bala" << std::endl;
+        return;
+    }
+
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+        bullet newBullet;
+        newBullet.show().setPosition(this->PlayerShape.getPosition());
+        newBullet.receiveVelocity(aimDirNorm * newBullet.showMaxspeed());
+        bullets.push_back(newBullet);
+        this->ammo -= 1;
+    }
+}
+
+void Player::updateBullets() {
+    for(size_t i = 0; i < bullets.size(); ++i) {
+        bullets[i].update();
+    }
+}
+
+void Player::drawBullets(sf::RenderWindow &window) {
+    for(size_t i = 0; i < bullets.size(); ++i) {
+        window.draw(bullets[i].show());
+    }
 }
 
 #endif
