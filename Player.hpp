@@ -3,13 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 #include "Bullet.hpp"
+#include "Enemy.hpp"
 #include <vector>
 
 class Player {
 private:
     float life;
     float xp;
-    float cadence;
     sf::Vector2f velocity;
     bullet b1;
     std::vector<bullet> bullets;
@@ -27,16 +27,14 @@ public:
     void processEvents(sf::Keyboard::Key key, bool isPressed);
     void updateVelocity();
     void checkCollisions();
-    void startAmmo();
     void shootBullet(sf::Vector2f aimDirNorm);
-    void updateBullets();
+    void updateBullets(std::vector<Enemy> &enemies);
     void drawBullets(sf::RenderWindow &window);
 };
 
 Player::Player(){
     this->life = 100;
     this->xp = 0;
-    this->cadence = 0; // à definir
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->ammo = 10; // à definir
     this->up = false;
@@ -104,10 +102,6 @@ void Player::checkCollisions(){
     }
 }
 
-void Player::startAmmo(){
-    this->bullets.push_back(this->b1);
-}
-
 void Player::shootBullet(sf::Vector2f aimDirNorm){
     if(ammo == 0){
         std::cout << "n tem bala" << std::endl;
@@ -123,9 +117,23 @@ void Player::shootBullet(sf::Vector2f aimDirNorm){
     }
 }
 
-void Player::updateBullets() {
+void Player::updateBullets(std::vector<Enemy> &enemies){
     for(size_t i = 0; i < bullets.size(); ++i) {
         bullets[i].update();
+        if(bullets[i].show().getPosition().x < 0 || bullets[i].show().getPosition().x > 800.f
+        || bullets[i].show().getPosition().y < 0 || bullets[i].show().getPosition().y > 600.f){
+            bullets.erase(bullets.begin() + i);
+            --i;
+        } else {
+            for (size_t k = 0; k < enemies.size(); ++k) {
+                if(bullets[i].show().getGlobalBounds().intersects(enemies[k].show().getGlobalBounds())){
+                    bullets.erase(bullets.begin() + i);
+                    enemies.erase(enemies.begin() + k);
+                    --i;
+                    break;
+                }
+            }
+        }
     }
 }
 

@@ -22,9 +22,10 @@ bullet::bullet() {
     this->damage = 50.f;
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->maxSpeed = 2.f;
-    this->bulletShape.setSize(sf::Vector2f(10.0f, 10.0f)); 
-    this->bulletShape.setOrigin(sf::Vector2f(2.5f, 2.5f)); 
+    this->bulletShape.setSize(sf::Vector2f(10.0f, 10.0f));
+    this->bulletShape.setOrigin(sf::Vector2f(5.0f, 5.0f)); // Ajustar a origem para o novo tamanho
     this->bulletShape.setFillColor(sf::Color::Yellow);
+    this->bulletShape.setOutlineThickness(1.f);
     this->bulletShape.setOutlineColor(sf::Color::Black);
 }
 
