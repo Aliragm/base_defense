@@ -57,16 +57,16 @@ sf::CircleShape Player::show(){
 }
 
 void Player::processEvents(sf::Keyboard::Key key, bool isPressed){
-    if (key == sf::Keyboard::Up){
+    if (key == sf::Keyboard::W){
         this->up = isPressed;
     }
-    if (key == sf::Keyboard::Down){
+    if (key == sf::Keyboard::S){
         this->down = isPressed;
     }
-    if (key == sf::Keyboard::Left){
+    if (key == sf::Keyboard::A){
         this->left = isPressed;
     }
-    if (key == sf::Keyboard::Right){
+    if (key == sf::Keyboard::D){
         this->right = isPressed;
     }
 }

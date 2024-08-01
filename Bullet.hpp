@@ -21,10 +21,11 @@ public:
 bullet::bullet() {
     this->damage = 50.f;
     this->velocity = sf::Vector2f(0.f, 0.f);
-    this->maxSpeed = 2.f; // Reduzindo a velocidade máxima
-    this->bulletShape.setSize(sf::Vector2f(10.0f, 10.0f)); // Aumenta o tamanho da bala
-    this->bulletShape.setOrigin(sf::Vector2f(2.5f, 2.5f)); // Ajusta a origem ao novo tamanho
+    this->maxSpeed = 2.f;
+    this->bulletShape.setSize(sf::Vector2f(10.0f, 10.0f)); 
+    this->bulletShape.setOrigin(sf::Vector2f(2.5f, 2.5f)); 
     this->bulletShape.setFillColor(sf::Color::Yellow);
+    this->bulletShape.setOutlineColor(sf::Color::Black);
 }
 
 sf::RectangleShape& bullet::show() {
