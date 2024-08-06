@@ -8,6 +8,7 @@ class Enemy {
 private:
     float life;
     sf::RectangleShape enemyShape;
+    sf::Vector2f velocity;
     static std::vector<Enemy> enemies;
     static sf::Clock spawnClock; // Adiciona um relógio para medir o tempo entre spawns
     static int spawnCounter;
@@ -31,6 +32,7 @@ Enemy::Enemy() {
     this->enemyShape.setFillColor(sf::Color::Green);
     this->enemyShape.setOutlineThickness(1.f);
     this->enemyShape.setOutlineColor(sf::Color::Black);
+    this->velocity = sf::Vector2f(0.f, 0.f);
 }
 
 Enemy::~Enemy() {
