@@ -1,34 +1,50 @@
 ## Compiler g++/clang++
 CXX = g++
+
+## Project object files
 SRCS = ./classes/base.o ./classes/bullet.o ./classes/enemy.o ./classes/player.o main.o
+
+## Project header files
 HEADERS = ./headers/base.hpp ./headers/bullet.hpp ./headers/enemy.hpp ./headers/player.hpp
+
+## Compiler flags
 override CXXFLAGS += -g -Wall -pedantic
 
+## Compile all
 all: base.o bullet.o enemy.o player.o main.o project
 
-base.o:	$(HEADERS) ./classes/base.cpp
+## Compile base.cpp
+base.o: $(HEADERS) ./classes/base.cpp
 	$(CXX) $(CXXFLAGS) ./classes/base.cpp -c
 
-bullet.o:	$(HEADERS) ./classes/bullet.cpp
+## Compile bullet.cpp
+bullet.o: $(HEADERS) ./classes/bullet.cpp
 	$(CXX) $(CXXFLAGS) ./classes/bullet.cpp -c
 
-enemy.o:	$(HEADERS) ./classes/enemy.cpp
+## Compile enemy.cpp
+enemy.o: $(HEADERS) ./classes/enemy.cpp
 	$(CXX) $(CXXFLAGS) ./classes/enemy.cpp -c
 
-player.o:	$(HEADERS) ./classes/bullet.o ./classes/enemy.o ./classes/player.cpp
+## Compile player.cpp
+player.o: $(HEADERS) ./classes/bullet.o ./classes/enemy.o ./classes/player.cpp
 	$(CXX) $(CXXFLAGS) ./classes/player.cpp -c
 
-main.o:	$(HEADERS) main.cpp
+## Compile main.cpp
+main.o: $(HEADERS) main.cpp
 	$(CXX) $(CXXFLAGS) main.cpp -c
 
-project:	$(HEADERS) $(SRCS)
+## Link all object files
+project: $(HEADERS) $(SRCS)
 	$(CXX) $(SRCS) $(CXXFLAGS) -o project -lsfml-graphics -lsfml-window -lsfml-system
 
+## Clean object files and project
 clean:
 	rm -f *.o ./classes/*.o project
 
+## Clean only object files
 clean-obj:
 	rm -f *.o ./classes/*.o
 
+## Clean only project
 clean-project:
 	rm -f project
