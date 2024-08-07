@@ -2,9 +2,9 @@
 #include <iostream>
 #include <math.h>
 #include <cstdlib>
-#include "Base.hpp"
-#include "Player.hpp"
-#include "Enemy.hpp"
+#include "headers/base.hpp"
+#include "headers/player.hpp"
+#include "headers/enemy.hpp"
 
 // clang++ prototipo.cpp -o protipo -I/usr/local/Cellar/sfml/2.6.1/include -L/usr/local/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -23,7 +23,7 @@ int main(){
     sf::Vector2f aimDirNorm;
 
     // Loop do jogo
-    while (window.isOpen())
+    while (window.isOpen()) 
     {
         // Atualização
         Player.updateVelocity();
@@ -40,16 +40,16 @@ int main(){
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed){
+            if (event.type == sf::Event::Closed)    {
                 window.close();
             }
-            if(event.type == sf::Event::KeyPressed){
+            if(event.type == sf::Event::KeyPressed) {
                 Player.processEvents(event.key.code, true);
             }
-            if(event.type == sf::Event::KeyReleased){
+            if(event.type == sf::Event::KeyReleased)    {
                 Player.processEvents(event.key.code, false);
             }
-            if(event.type == sf::Event::MouseButtonPressed){
+            if(event.type == sf::Event::MouseButtonPressed) {
                 Player.shootBullet(aimDirNorm);
             }
         }

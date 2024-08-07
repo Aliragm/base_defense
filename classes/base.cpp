@@ -1,21 +1,6 @@
-#ifndef BASE_HPP
-#define BASE_HPP
+#include "../headers/base.hpp"
 
-#include <SFML/Graphics.hpp>
-
-class Base : public sf::RectangleShape {
-private:
-    float health;
-    sf::RectangleShape structure;
-
-public:
-    Base();
-    ~Base();
-    sf::RectangleShape show();
-};
-
-Base::Base()
-{
+Base::Base()    {
     this->health = 100.f;
     this->structure.setSize(sf::Vector2f(250.f, 250.f));
     this->structure.setOrigin(sf::Vector2f(125.f, 125.f));
@@ -25,12 +10,8 @@ Base::Base()
     this->structure.setOutlineColor(sf::Color::Green);
 }
 
-Base::~Base()
-{
-}
+Base::~Base()   {}
 
-sf::RectangleShape Base::show(){
+sf::RectangleShape Base::show() {
     return this->structure;
 }
-
-#endif
