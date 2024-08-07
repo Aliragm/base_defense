@@ -1,24 +1,6 @@
-#ifndef BULLET_H
-#define BULLET_H
+#include "../headers/bullet.hpp"
 
-#include <SFML/Graphics.hpp>
-
-class bullet {
-private:
-    float damage;
-    sf::Vector2f velocity;
-    float maxSpeed;
-    sf::RectangleShape bulletShape;
-public:
-    bullet();
-    sf::RectangleShape& show();
-    void receiveVelocity(sf::Vector2f velocityReceived);
-    float showMaxspeed();
-    sf::Vector2f showSpeed();
-    void update();
-};
-
-bullet::bullet() {
+Bullet::Bullet() {
     this->damage = 50.f;
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->maxSpeed = 2.f;
@@ -29,24 +11,22 @@ bullet::bullet() {
     this->bulletShape.setOutlineColor(sf::Color::Black);
 }
 
-sf::RectangleShape& bullet::show() {
+sf::RectangleShape& Bullet::show() {
     return this->bulletShape;
 }
 
-void bullet::receiveVelocity(sf::Vector2f velocityReceived){
+void Bullet::receiveVelocity(sf::Vector2f velocityReceived){
     this->velocity = velocityReceived;
 }
 
-float bullet::showMaxspeed(){
+float Bullet::showMaxspeed(){
     return this->maxSpeed;
 }
 
-sf::Vector2f bullet::showSpeed(){
+sf::Vector2f Bullet::showSpeed(){
     return this->velocity;
 }
 
-void bullet::update() {
+void Bullet::update() {
     this->bulletShape.move(this->velocity);
 }
-
-#endif

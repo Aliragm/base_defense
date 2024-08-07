@@ -2,4 +2,6 @@
 *.out
 *.o
 *.DS_store
+.vscode
 prototipo
+project
