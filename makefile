@@ -17,8 +17,8 @@ enemy.o:	$(HEADERS) ./classes/enemy.cpp
 player.o:	$(HEADERS) ./classes/bullet.o ./classes/enemy.o ./classes/player.cpp
 	$(CXX) ./classes/player.cpp -c
 
-main.o:	$(HEADERS) prototipo.cpp
-	$(CXX) prototipo.cpp -c
+main.o:	$(HEADERS) main.cpp
+	$(CXX) main.cpp -c
 
 project:	$(HEADERS) $(SRCS)
 	$(CXX) $(SRCS) -o project -lsfml-graphics -lsfml-window -lsfml-system
