@@ -17,6 +17,7 @@ int main(){
     Base Base;
     Player Player;
     Enemy Enemies;
+    // Vetores
     sf::Vector2f playerCenter;
     sf::Vector2f mousePosWindow;
     sf::Vector2f aimDir;

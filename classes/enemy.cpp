@@ -26,9 +26,29 @@ std::vector<Enemy>& Enemy::showVector() {
 void Enemy::Spawner()   {
     if (spawnClock.getElapsedTime().asSeconds() >= 2.0f && enemies.size() < 20) { // Verifica se passaram 5 segundos
         Enemy newEnemy;
-        newEnemy.show().setPosition(sf::Vector2f(std::rand() % 800, std::rand() % 600));
-        enemies.push_back(newEnemy);
-        spawnClock.restart(); // Reinicia o relógio após spawnar um inimigo
+        int retangleSide = std::rand() % 3 + 1;
+
+        //  Escolhe um dos 4 lados da tela aleatóriamente para spawnar
+        if (retangleSide == 1)  {
+            newEnemy.show().setPosition(sf::Vector2f(-21, std::rand() % 600));
+            enemies.push_back(newEnemy);
+            spawnClock.restart();   // Reinicia o relógio após spawnar um inimigo
+        }
+        else if (retangleSide == 2)  {
+            newEnemy.show().setPosition(sf::Vector2f(std::rand() % 800, -21));
+            enemies.push_back(newEnemy);
+            spawnClock.restart();
+        }
+        else if (retangleSide == 3)  {
+            newEnemy.show().setPosition(sf::Vector2f(801, std::rand() % 600));
+            enemies.push_back(newEnemy);
+            spawnClock.restart();
+        }
+        else    {
+            newEnemy.show().setPosition(sf::Vector2f(std::rand() % 800, 601));
+            enemies.push_back(newEnemy);
+            spawnClock.restart();
+        }
     }
 }
 
