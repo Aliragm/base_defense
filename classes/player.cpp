@@ -95,26 +95,31 @@ void Player::shootBullet(sf::Vector2f aimDirNorm)   {
     }
 }
 
-void Player::updateBullets(std::vector<Enemy> &enemies) {
-    for(size_t i = 0; i < bullets.size(); ++i)  {
-        bullets[i].update();
-        if(bullets[i].show().getPosition().x < 0 || bullets[i].show().getPosition().x > 800.f
-        || bullets[i].show().getPosition().y < 0 || bullets[i].show().getPosition().y > 600.f)  {
+void Player::updateBullets(std::vector<Enemy> &enemies, float dt) {
+    // Remover balas que saíram da tela
+    for (size_t i = 0; i < bullets.size(); ) {
+        bullets[i].update(dt);
+        if (bullets[i].show().getPosition().x < 0 || bullets[i].show().getPosition().x > 800.f
+            || bullets[i].show().getPosition().y < 0 || bullets[i].show().getPosition().y > 600.f) {
             bullets.erase(bullets.begin() + i);
-            i--;
-        } 
-        else    {
+        } else {
+            // Verificar colisão com inimigos
+            bool bulletRemoved = false;
             for (size_t k = 0; k < enemies.size(); ++k) {
-                if(bullets[i].show().getGlobalBounds().intersects(enemies[k].show().getGlobalBounds())) {
+                if (bullets[i].show().getGlobalBounds().intersects(enemies[k].show().getGlobalBounds())) {
                     bullets.erase(bullets.begin() + i);
                     enemies.erase(enemies.begin() + k);
-                    i--;
+                    bulletRemoved = true;
                     break;
                 }
+            }
+            if (!bulletRemoved) {
+                ++i;
             }
         }
     }
 }
+
 
 void Player::drawBullets(sf::RenderWindow &window)  {
     for(size_t i = 0; i < bullets.size(); ++i)  {

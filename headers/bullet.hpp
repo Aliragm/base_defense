@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Bullet    {
+class Bullet {
     private:
         float damage;
         sf::Vector2f velocity;
@@ -15,7 +15,7 @@ class Bullet    {
         void receiveVelocity(sf::Vector2f velocityReceived);
         float showMaxspeed();
         sf::Vector2f showSpeed();
-        void update();
+        void update(float dt);
 };
 
 #endif
