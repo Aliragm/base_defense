@@ -29,7 +29,7 @@ class Player    {
         void updateVelocity();
         void checkCollisions();
         void shootBullet(sf::Vector2f aimDirNorm);
-        void updateBullets(std::vector<Enemy> &enemies);
+        void updateBullets(std::vector<Enemy> &enemies, float dt);
         void drawBullets(sf::RenderWindow &window);
 };
 

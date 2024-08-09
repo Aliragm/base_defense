@@ -1,5 +1,10 @@
-## Compiler g++/clang++
-CXX = g++
+## Detect the operating system and set the compiler accordingly
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+    CXX = clang++
+else
+    CXX = g++
+endif
 
 ## Project object files
 SRCS = ./classes/base.o ./classes/bullet.o ./classes/enemy.o ./classes/player.o main.o
