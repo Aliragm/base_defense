@@ -87,7 +87,7 @@ void Player::shootBullet(sf::Vector2f aimDirNorm)   {
     }
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        Bullet newBullet(500);
+        Bullet newBullet(500, 50);
         newBullet.show().setPosition(this->PlayerShape.getPosition());
         newBullet.receiveVelocity(aimDirNorm * newBullet.showMaxspeed());
         bullets.push_back(newBullet);

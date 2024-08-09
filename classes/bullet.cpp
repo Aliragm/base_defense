@@ -11,8 +11,8 @@ Bullet::Bullet()    {
     this->bulletShape.setOutlineColor(sf::Color::Black);
 }
 
-Bullet::Bullet(float maxSpeed, sf::Color color) {
-    this->damage = 50.f;
+Bullet::Bullet(float maxSpeed, float damage, sf::Color color) {
+    this->damage = damage;
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->maxSpeed = maxSpeed; // Ajuste a velocidade para um valor razoável
     this->bulletShape.setSize(sf::Vector2f(10.0f, 10.0f));
