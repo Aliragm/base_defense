@@ -1,5 +1,15 @@
 #include "../headers/player.hpp"
 
+bool Player::initTexture()   {
+    if (!this->PlayerTexture.loadFromFile("..\\gfx\\GIRAO.png"))   {
+        std::cout << "ERROR: Could not load player texture" << std::endl;
+        return 1;
+    }
+
+    this->PlayerSprite.setTexture(this->PlayerTexture);
+    return 0;
+}
+
 Player::Player()    {
     this->life = 100;
     this->xp = 0;
@@ -12,6 +22,7 @@ Player::Player()    {
     this->PlayerShape.setRadius(20.f);
     this->PlayerShape.setOrigin(sf::Vector2f(20.f, 20.f));
     this->PlayerShape.setPosition(sf::Vector2f(400.f, 300.f));
+    this->initTexture();
     this->PlayerShape.setFillColor(sf::Color::Red);
 }
 
