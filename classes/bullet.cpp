@@ -1,6 +1,6 @@
 #include "../headers/bullet.hpp"
 
-Bullet::Bullet() {
+Bullet::Bullet()    {
     this->damage = 50.f;
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->maxSpeed = 200.f; // Ajuste a velocidade para um valor razoável
@@ -11,7 +11,7 @@ Bullet::Bullet() {
     this->bulletShape.setOutlineColor(sf::Color::Black);
 }
 
-sf::RectangleShape& Bullet::show() {
+sf::RectangleShape& Bullet::show()  {
     return this->bulletShape;
 }
 
@@ -19,11 +19,11 @@ void Bullet::receiveVelocity(sf::Vector2f velocityReceived){
     this->velocity = velocityReceived;
 }
 
-float Bullet::showMaxspeed(){
+float Bullet::showMaxspeed()    {
     return this->maxSpeed;
 }
 
-sf::Vector2f Bullet::showSpeed(){
+sf::Vector2f Bullet::showSpeed()    {
     return this->velocity;
 }
 
