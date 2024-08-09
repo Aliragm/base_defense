@@ -43,7 +43,7 @@ int main() {
         aimDirNorm = aimDir / length;
 
         // Atualizar inimigos
-        for (int j = 0; j < Enemies.showVector().size(); j++) {
+        for (int j = 0; j < (int) Enemies.showVector().size(); j++) {
             aimDirEnemy = playerCenter - Enemies.showVector()[j].showPos();
             float lengthEnemy = sqrt(pow(aimDirEnemy.x, 2) + pow(aimDirEnemy.y, 2));
             aimDirNormEnemy = aimDirEnemy / lengthEnemy;    
@@ -68,7 +68,7 @@ int main() {
         }
 
         // Atualizar balas dos inimigos
-        for (int i = 0; i < Enemies.showVector().size(); i++) {
+        for (int i = 0; i < (int) Enemies.showVector().size(); i++) {
             Enemies.showVector()[i].updateBulletsEnemy(dt);
         }
 
@@ -80,7 +80,7 @@ int main() {
         Enemies.Spawner(); // Chama o Spawner para criar os inimigos
         Enemies.DrawEnemies(window); // Desenha os inimigos na janela
         Player.drawBullets(window);
-        for (int i = 0; i < Enemies.showVector().size(); i++) {
+        for (int i = 0; i < (int) Enemies.showVector().size(); i++) {
             Enemies.showVector()[i].drawBulletsEnemy(window);
         }
         window.draw(Player.show());
