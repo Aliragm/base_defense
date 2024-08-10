@@ -11,15 +11,18 @@ class Player    {
     private:
         float life;
         float xp;
+        int ammo;
         sf::Vector2f velocity;
         Bullet b1;
         std::vector<Bullet> bullets;
-        int ammo;
         sf::CircleShape PlayerShape;
+        sf::Sprite PlayerSprite;
+        sf::Texture PlayerTexture;
         bool up;
         bool down;
         bool left;
         bool right;
+        bool initTexture();
 
     public:
         Player();

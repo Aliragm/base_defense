@@ -71,8 +71,9 @@ const sf::Vector2f& Enemy::showPos() {
 }
 
 void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt) {
-    if (shootClock.getElapsedTime().asSeconds() >= 1.0f) { // intervalo dos tiros
-        Bullet newBullet;
+    // Adicionei um intervalo de tempo para os disparos
+    if (shootClock.getElapsedTime().asSeconds() >= 1.0f) { // Ajuste o intervalo conforme necessário
+        Bullet newBullet(200, 50, sf::Color::Red);
         newBullet.show().setPosition(this->enemyShape.getPosition());
         newBullet.receiveVelocity(aimDirNormEnemy * newBullet.showMaxspeed());
         bullets.push_back(newBullet);

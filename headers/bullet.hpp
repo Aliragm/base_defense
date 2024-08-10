@@ -11,6 +11,7 @@ class Bullet {
         sf::RectangleShape bulletShape;
     public:
         Bullet();
+        Bullet(float maxSpeed, float damage, sf::Color color = sf::Color::Yellow);
         sf::RectangleShape& show();
         void receiveVelocity(sf::Vector2f velocityReceived);
         float showMaxspeed();
