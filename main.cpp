@@ -38,9 +38,6 @@ int main() {
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->updateBulletsEnemy(dt);
         }
-        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
-            it->UpdateVelocity(dt, aimDirNormEnemy);
-        }
 
         playerCenter = Player.show().getPosition();
         mousePosWindow = sf::Vector2f(sf::Mouse::getPosition(window));
@@ -80,6 +77,9 @@ int main() {
         // Desenho
         window.clear();
         window.draw(Background);
+        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+            it->UpdateVelocity(dt, aimDirNormEnemy);
+        }
         window.draw(Base.show());
         Enemies.Spawner(); // Chama o Spawner para criar os inimigos
         Enemies.DrawEnemies(window); // Desenha os inimigos na janela
