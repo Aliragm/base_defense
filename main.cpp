@@ -24,6 +24,8 @@ int main() {
     sf::Vector2f aimDirNorm;
     sf::Vector2f aimDirEnemy;
     sf::Vector2f aimDirNormEnemy;
+    sf::Vector2f aimDirEnemyMov;
+    sf::Vector2f aimDirNormEnemyMov;
 
     sf::Clock clock;
 
@@ -45,7 +47,7 @@ int main() {
         float length = sqrt(pow(aimDir.x, 2) + pow(aimDir.y, 2));
         aimDirNorm = aimDir / length;
 
-        // Inimigos atiram e movem-se
+        // Inimigos atiram
         if (!Enemies.showVector().empty()) {
             for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
                 aimDirEnemy = playerCenter - it->showPos();
@@ -77,9 +79,6 @@ int main() {
         // Desenho
         window.clear();
         window.draw(Background);
-        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
-            it->UpdateVelocity(dt, aimDirNormEnemy);
-        }
         window.draw(Base.show());
         Enemies.Spawner(); // Chama o Spawner para criar os inimigos
         Enemies.DrawEnemies(window); // Desenha os inimigos na janela
@@ -88,6 +87,13 @@ int main() {
             it->drawBulletsEnemy(window);
         }
         window.draw(Player.show());
+        //não está otimizado, porém foi assim que eu pensei e consegui
+        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+            aimDirEnemyMov = Player.show().getPosition() - it->showPos();
+            float lengthTemp = sqrt(pow(aimDirEnemyMov.x, 2) + pow(aimDirEnemyMov.y, 2));
+            aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
+            it->UpdateVelocity(dt, aimDirNormEnemyMov);
+        }
         window.display();
     }
 
