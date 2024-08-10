@@ -1,7 +1,7 @@
 #include "../headers/player.hpp"
 
 bool Player::initTexture()   {
-    if (!this->PlayerTexture.loadFromFile("gfx/GIRAO.png"))   {
+    if (!this->PlayerTexture.loadFromFile("gfx/Player.png"))   {
         std::cout << "ERROR: Could not load player texture" << std::endl;
         return 1;
     }
