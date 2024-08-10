@@ -12,6 +12,7 @@ Enemy::Enemy() {
     this->enemyShape.setOutlineColor(sf::Color::Black);
     this->enemyShape.setOrigin(20.f, 20.f);
     this->velocity = sf::Vector2f(0.f, 0.f);
+    this->maxSpeed = 100.f;
     this->shootClock.restart();
 }
 
@@ -54,9 +55,14 @@ void Enemy::Spawner() {
     }
 }
 
+void Enemy::UpdateVelocity(float dt, sf::Vector2f aimDirNormEnemy){
+    this->velocity = aimDirNormEnemy * this->maxSpeed;
+    this->enemyShape.move(this->velocity * dt);
+}
+
 void Enemy::DrawEnemies(sf::RenderWindow& window) {
-    for (size_t i = 0; i < enemies.size(); ++i) {
-        window.draw(enemies[i].show());
+    for (std::vector<Enemy>::iterator it = enemies.begin(); it != enemies.end(); ++it) {
+        window.draw(it->show());
     }
 }
 
@@ -65,8 +71,7 @@ const sf::Vector2f& Enemy::showPos() {
 }
 
 void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt) {
-    // Adicionei um intervalo de tempo para os disparos
-    if (shootClock.getElapsedTime().asSeconds() >= 1.0f) { // Ajuste o intervalo conforme necessário
+    if (shootClock.getElapsedTime().asSeconds() >= 1.0f) { // intervalo dos tiros
         Bullet newBullet;
         newBullet.show().setPosition(this->enemyShape.getPosition());
         newBullet.receiveVelocity(aimDirNormEnemy * newBullet.showMaxspeed());
@@ -76,18 +81,19 @@ void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt) {
 }
 
 void Enemy::updateBulletsEnemy(float dt) {
-    for (size_t i = 0; i < bullets.size(); ++i) {
-        bullets[i].update(dt);
-        if (bullets[i].show().getPosition().x < 0 || bullets[i].show().getPosition().x > 800.f
-            || bullets[i].show().getPosition().y < 0 || bullets[i].show().getPosition().y > 600.f) {
-            bullets.erase(bullets.begin() + i);
-            i--;
+    for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ) {
+        it->update(dt);
+        if (it->show().getPosition().x < 0 || it->show().getPosition().x > 800.f
+            || it->show().getPosition().y < 0 || it->show().getPosition().y > 600.f) {
+            it = bullets.erase(it);
+        } else {
+            ++it;
         }
     }
 }
 
 void Enemy::drawBulletsEnemy(sf::RenderWindow& window) {
-    for (size_t i = 0; i < bullets.size(); ++i) {
-        window.draw(bullets[i].show());
+    for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+        window.draw(it->show());
     }
 }
