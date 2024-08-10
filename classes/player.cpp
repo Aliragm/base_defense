@@ -85,33 +85,30 @@ void Player::shootBullet(sf::Vector2f aimDirNorm)   {
 }
 
 void Player::updateBullets(std::vector<Enemy> &enemies, float dt) {
-    // Remover balas que saíram da tela
-    for (size_t i = 0; i < bullets.size(); ) {
-        bullets[i].update(dt);
-        if (bullets[i].show().getPosition().x < 0 || bullets[i].show().getPosition().x > 800.f
-            || bullets[i].show().getPosition().y < 0 || bullets[i].show().getPosition().y > 600.f) {
-            bullets.erase(bullets.begin() + i);
+    for (std::vector<Bullet>::iterator bulletIt = bullets.begin(); bulletIt != bullets.end(); ) {
+        bulletIt->update(dt);
+        if (bulletIt->show().getPosition().x < 0 || bulletIt->show().getPosition().x > 800.f
+            || bulletIt->show().getPosition().y < 0 || bulletIt->show().getPosition().y > 600.f) {
+            bulletIt = bullets.erase(bulletIt);
         } else {
-            // Verificar colisão com inimigos
             bool bulletRemoved = false;
-            for (size_t k = 0; k < enemies.size(); ++k) {
-                if (bullets[i].show().getGlobalBounds().intersects(enemies[k].show().getGlobalBounds())) {
-                    bullets.erase(bullets.begin() + i);
-                    enemies.erase(enemies.begin() + k);
+            for (std::vector<Enemy>::iterator enemyIt = enemies.begin(); enemyIt != enemies.end(); ++enemyIt) {
+                if (bulletIt->show().getGlobalBounds().intersects(enemyIt->show().getGlobalBounds())) {
+                    bulletIt = bullets.erase(bulletIt);
+                    enemies.erase(enemyIt);
                     bulletRemoved = true;
                     break;
                 }
             }
             if (!bulletRemoved) {
-                ++i;
+                ++bulletIt;
             }
         }
     }
 }
 
-
 void Player::drawBullets(sf::RenderWindow &window)  {
-    for(size_t i = 0; i < bullets.size(); ++i)  {
-        window.draw(bullets[i].show());
+    for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+        window.draw(it->show());
     }
 }

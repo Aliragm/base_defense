@@ -35,6 +35,12 @@ int main() {
         Player.updateVelocity();
         Player.checkCollisions();
         Player.updateBullets(Enemies.showVector(), dt);
+        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+            it->updateBulletsEnemy(dt);
+        }
+        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+            it->UpdateVelocity(dt, aimDirNormEnemy);
+        }
 
         playerCenter = Player.show().getPosition();
         mousePosWindow = sf::Vector2f(sf::Mouse::getPosition(window));
@@ -42,12 +48,16 @@ int main() {
         float length = sqrt(pow(aimDir.x, 2) + pow(aimDir.y, 2));
         aimDirNorm = aimDir / length;
 
-        // Atualizar inimigos
-        for (int j = 0; j < (int) Enemies.showVector().size(); j++) {
-            aimDirEnemy = playerCenter - Enemies.showVector()[j].showPos();
-            float lengthEnemy = sqrt(pow(aimDirEnemy.x, 2) + pow(aimDirEnemy.y, 2));
-            aimDirNormEnemy = aimDirEnemy / lengthEnemy;    
-            Enemies.showVector()[j].shoot(aimDirNormEnemy, dt);
+        // Inimigos atiram e movem-se
+        if (!Enemies.showVector().empty()) {
+            for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+                aimDirEnemy = playerCenter - it->showPos();
+                float lengthEnemy = sqrt(pow(aimDirEnemy.x, 2) + pow(aimDirEnemy.y, 2));
+                if (lengthEnemy != 0) {
+                    aimDirNormEnemy = aimDirEnemy / lengthEnemy;
+                }
+                it->shoot(aimDirNormEnemy, dt);
+            }
         }
 
         // Eventos
@@ -67,21 +77,15 @@ int main() {
             }
         }
 
-        // Atualizar balas dos inimigos
-        for (int i = 0; i < (int) Enemies.showVector().size(); i++) {
-            Enemies.showVector()[i].updateBulletsEnemy(dt);
-        }
-
         // Desenho
         window.clear();
         window.draw(Background);
-
         window.draw(Base.show());
         Enemies.Spawner(); // Chama o Spawner para criar os inimigos
         Enemies.DrawEnemies(window); // Desenha os inimigos na janela
         Player.drawBullets(window);
-        for (int i = 0; i < (int) Enemies.showVector().size(); i++) {
-            Enemies.showVector()[i].drawBulletsEnemy(window);
+        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+            it->drawBulletsEnemy(window);
         }
         window.draw(Player.show());
         window.display();
