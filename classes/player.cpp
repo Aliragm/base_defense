@@ -12,7 +12,7 @@ bool Player::initTexture()   {
 }
 
 Player::Player()    {
-    this->life = 100;
+    this->life = 500.f;
     this->xp = 0;
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->ammo = 10; // à definir
