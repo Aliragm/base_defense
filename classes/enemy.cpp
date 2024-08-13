@@ -3,6 +3,7 @@
 std::vector<Enemy> Enemy::enemies;
 sf::Clock Enemy::spawnClock; // Inicializa o relógio
 int Enemy::spawnCounter = 0;
+std::vector<Bullet> Enemy::bullets;
 
 Enemy::Enemy() {
     this->life = 100.f;
