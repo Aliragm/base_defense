@@ -1,4 +1,5 @@
 #include "../headers/enemy.hpp"
+#include "../headers/player.hpp"
 
 std::vector<Enemy> Enemy::enemies;
 sf::Clock Enemy::spawnClock; // Inicializa o relógio
@@ -74,7 +75,7 @@ const sf::Vector2f& Enemy::showPos() {
 void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt) {
     // Adicionei um intervalo de tempo para os disparos
     if (shootClock.getElapsedTime().asSeconds() >= 1.0f) { // Ajuste o intervalo conforme necessário
-        Bullet newBullet(200, 50, sf::Color::Red);
+        Bullet newBullet(200, 50, sf::Color::Red, true);
         newBullet.show().setPosition(this->enemyShape.getPosition());
         newBullet.receiveVelocity(aimDirNormEnemy * newBullet.showMaxspeed());
         bullets.push_back(newBullet);
@@ -82,13 +83,17 @@ void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt) {
     }
 }
 
-void Enemy::updateBulletsEnemy(float dt) {
+void Enemy::updateBulletsEnemy(float dt, Player& player) {
     for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ) {
         it->update(dt);
         if (it->show().getPosition().x < 0 || it->show().getPosition().x > 800.f
             || it->show().getPosition().y < 0 || it->show().getPosition().y > 600.f) {
             it = bullets.erase(it);
-        } else {
+        }
+        else if(it->showIsEnemy() == true && it->show().getGlobalBounds().intersects(player.showHitbox().getGlobalBounds())){
+            player.takeDamage(it->showDamage());
+        } 
+        else {
             ++it;
         }
     }

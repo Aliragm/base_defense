@@ -6,8 +6,6 @@
 #include "headers/player.hpp"
 #include "headers/enemy.hpp"
 
-// clang++ prototipo.cpp -o protipo -I/usr/local/Cellar/sfml/2.6.1/include -L/usr/local/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
-
 int main() {
     std::srand(time(NULL));
     // Variáveis
@@ -34,11 +32,15 @@ int main() {
         float dt = clock.restart().asSeconds();
 
         // Atualização
+        if(!Player.isAlive()){
+            std::cout << "game over, morreu" << std::endl;
+            window.close();
+        }
         Player.updateVelocity();
         Player.checkCollisions();
         Player.updateBullets(Enemies.showVector(), dt);
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
-            it->updateBulletsEnemy(dt);
+            it->updateBulletsEnemy(dt, Player);
         }
 
         playerCenter = Player.show().getPosition();

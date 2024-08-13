@@ -4,8 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "bullet.hpp"
-#include "enemy.hpp"
 #include <vector>
+
+class Enemy;
 
 class Player    {
     private:
@@ -16,6 +17,7 @@ class Player    {
         Bullet b1;
         std::vector<Bullet> bullets;
         sf::CircleShape PlayerShape;
+        sf::RectangleShape Hitbox;
         sf::Sprite PlayerSprite;
         sf::Texture PlayerTexture;
         bool up;
@@ -28,12 +30,15 @@ class Player    {
         Player();
         ~Player();
         sf::CircleShape show();
+        sf::RectangleShape showHitbox();
         void processEvents(sf::Keyboard::Key key, bool isPressed);
         void updateVelocity();
         void checkCollisions();
         void shootBullet(sf::Vector2f aimDirNorm);
         void updateBullets(std::vector<Enemy> &enemies, float dt);
         void drawBullets(sf::RenderWindow &window);
+        void takeDamage(float damage);
+        bool isAlive();
 };
 
 #endif

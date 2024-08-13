@@ -1,4 +1,5 @@
 #include "../headers/player.hpp"
+#include "../headers/enemy.hpp"
 
 bool Player::initTexture()   {
     if (!this->PlayerTexture.loadFromFile("gfx/Player.png"))   {
@@ -22,6 +23,10 @@ Player::Player()    {
     this->PlayerShape.setRadius(20.f);
     this->PlayerShape.setOrigin(sf::Vector2f(20.f, 20.f));
     this->PlayerShape.setPosition(sf::Vector2f(400.f, 300.f));
+    this->Hitbox.setSize(sf::Vector2f(40.f, 40.f));
+    this->Hitbox.setFillColor(sf::Color::Transparent);
+    this->Hitbox.setOrigin(sf::Vector2f(20.f,20.f));
+    this->Hitbox.setPosition(sf::Vector2f(400.f, 300.f));
     this->initTexture();
 }
 
@@ -29,6 +34,10 @@ Player::~Player()   {}
 
 sf::CircleShape Player::show()  {
     return this->PlayerShape;
+}
+
+sf::RectangleShape Player::showHitbox(){
+    return this->Hitbox;
 }
 
 void Player::processEvents(sf::Keyboard::Key key, bool isPressed)   {
@@ -62,20 +71,25 @@ void Player::updateVelocity()   {
         this->velocity.x += 0.25f;
     }
     this->PlayerShape.move(velocity);
+    this->Hitbox.move(velocity);
 }
 
 void Player::checkCollisions()  {
     if(this->PlayerShape.getPosition().x < 20.f)    {
         this->PlayerShape.setPosition(20.f, this->PlayerShape.getPosition().y); // Teleporta o shape para a direita se ultrapassar o limite esquerdo
+        this->Hitbox.setPosition(20.f, this->Hitbox.getPosition().y);
     }
     if(this->PlayerShape.getPosition().x > 780.f)   {
         this->PlayerShape.setPosition(780.f, this->PlayerShape.getPosition().y); // Teleporta o shape para a esquerda se ultrapassar o limite direito
+        this->Hitbox.setPosition(780.f, this->Hitbox.getPosition().y);
     }
     if(this->PlayerShape.getPosition().y < 20.f)    {
         this->PlayerShape.setPosition(this->PlayerShape.getPosition().x, 20.f);
+        this->Hitbox.setPosition(this->Hitbox.getPosition().x, 20.f);
     }
     if(this->PlayerShape.getPosition().y > 580.f)   {
         this->PlayerShape.setPosition(this->PlayerShape.getPosition().x, 580.f);
+        this->Hitbox.setPosition(this->Hitbox.getPosition().x, 580.f);
     }
 }
 
@@ -120,5 +134,18 @@ void Player::updateBullets(std::vector<Enemy> &enemies, float dt) {
 void Player::drawBullets(sf::RenderWindow &window)  {
     for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
         window.draw(it->show());
+    }
+}
+
+void Player::takeDamage(float damage){
+    this->life -= damage;
+}
+
+bool Player::isAlive(){
+    if(this->life <= 0){
+        return false;
+    }
+    else{
+        return true;
     }
 }
