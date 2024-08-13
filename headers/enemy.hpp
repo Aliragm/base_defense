@@ -6,6 +6,7 @@
 #include "bullet.hpp"
 
 class Player;
+class Base;
 
 class Enemy {
 private:
@@ -28,7 +29,7 @@ public:
     static void DrawEnemies(sf::RenderWindow& window);
     const sf::Vector2f& showPos();
     void shoot(sf::Vector2f aimDirNormEnemy, float dt);
-    void updateBulletsEnemy(float dt, Player& player);
+    void updateBulletsEnemy(float dt, Player& player, Base& base);
     void drawBulletsEnemy(sf::RenderWindow& window);
 };
 

@@ -12,6 +12,8 @@ class Base : public sf::RectangleShape  {
         Base();
         ~Base();
         sf::RectangleShape show();
+        void takeDamage(float damage);
+        bool isAlive();
 };
 
 

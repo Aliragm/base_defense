@@ -1,5 +1,6 @@
 #include "../headers/enemy.hpp"
 #include "../headers/player.hpp"
+#include "../headers/base.hpp"
 
 std::vector<Enemy> Enemy::enemies;
 sf::Clock Enemy::spawnClock; // Inicializa o relógio
@@ -83,7 +84,7 @@ void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt) {
     }
 }
 
-void Enemy::updateBulletsEnemy(float dt, Player& player) {
+void Enemy::updateBulletsEnemy(float dt, Player& player, Base& base) {
     for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ) {
         it->update(dt);
         if (it->show().getPosition().x < 0 || it->show().getPosition().x > 800.f
@@ -92,6 +93,11 @@ void Enemy::updateBulletsEnemy(float dt, Player& player) {
         }
         else if(it->showIsEnemy() == true && it->show().getGlobalBounds().intersects(player.showHitbox().getGlobalBounds())){
             player.takeDamage(it->showDamage());
+            it = bullets.erase(it);
+        }
+        else if(it->showIsEnemy() == true && it->show().getGlobalBounds().intersects(base.show().getGlobalBounds())){
+            base.takeDamage(it->showDamage());
+            it = bullets.erase(it);
         } 
         else {
             ++it;

@@ -36,11 +36,15 @@ int main() {
             std::cout << "game over, morreu" << std::endl;
             window.close();
         }
+        if(!Base.isAlive()){
+            std::cout << "game over, base morreu" << std::endl;
+            window.close();
+        }
         Player.updateVelocity();
         Player.checkCollisions();
         Player.updateBullets(Enemies.showVector(), dt);
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
-            it->updateBulletsEnemy(dt, Player);
+            it->updateBulletsEnemy(dt, Player, Base);
         }
 
         playerCenter = Player.show().getPosition();
