@@ -7,16 +7,16 @@ else
 endif
 
 ## Project object files
-SRCS = ./classes/base.o ./classes/bullet.o ./classes/enemy.o ./classes/player.o main.o
+SRCS = ./classes/base.o ./classes/bullet.o ./classes/enemy.o ./classes/HUD.o ./classes/player.o main.o
 
 ## Project header files
-HEADERS = ./headers/base.hpp ./headers/bullet.hpp ./headers/enemy.hpp ./headers/player.hpp
+HEADERS = ./headers/base.hpp ./headers/bullet.hpp ./headers/HUD.hpp ./headers/enemy.hpp ./headers/player.hpp
 
 ## Compiler flags
 override CXXFLAGS += -g -Wall -pedantic
 
 ## Compile all
-all: base.o bullet.o enemy.o player.o main.o project
+all: base.o bullet.o enemy.o player.o HUD.o main.o project
 
 ## Compile base.cpp
 base.o: $(HEADERS) ./classes/base.cpp
@@ -29,7 +29,9 @@ bullet.o: $(HEADERS) ./classes/bullet.cpp
 ## Compile enemy.cpp
 enemy.o: $(HEADERS) ./classes/enemy.cpp
 	$(CXX) $(CXXFLAGS) ./classes/enemy.cpp -c
-
+## Compile HUD.cpp
+enemy.o: $(HEADERS) ./classes/HUD.cpp
+	$(CXX) $(CXXFLAGS) ./classes/HUD.cpp -c
 ## Compile player.cpp
 player.o: $(HEADERS) ./classes/bullet.o ./classes/enemy.o ./classes/player.cpp
 	$(CXX) $(CXXFLAGS) ./classes/player.cpp -c
