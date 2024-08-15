@@ -1,10 +1,8 @@
 #include "../headers/player.hpp"
 
 bool Player::initTexture()   {
-    if (!this->PlayerTexture.loadFromFile("gfx/Player.png"))   {
-        std::cout << "ERROR: Could not load player texture" << std::endl;
+    if (!this->PlayerTexture.loadFromFile("gfx/Ship.png"))
         return 1;
-    }
 
     this->PlayerShape.setTexture(&this->PlayerTexture);
     return 0;
@@ -19,7 +17,7 @@ Player::Player()    {
     this->down = false;
     this->left = false;
     this->right = false;
-    this->PlayerShape.setRadius(20.f);
+    this->PlayerShape.setRadius(30.f);
     this->PlayerShape.setOrigin(sf::Vector2f(20.f, 20.f));
     this->PlayerShape.setPosition(sf::Vector2f(400.f, 300.f));
     this->initTexture();
