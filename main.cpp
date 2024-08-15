@@ -14,6 +14,9 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "BaseDefense");
     sf::RectangleShape Background(sf::Vector2f(800.f, 600.f));
     Background.setFillColor(sf::Color::White);
+    sf::Texture BackgroundTexture;
+    BackgroundTexture.loadFromFile("gfx/Background.png");
+    Background.setTexture(&BackgroundTexture);
     Base Base;
     Player Player;
     Enemy Enemies;
