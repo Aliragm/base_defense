@@ -1,4 +1,5 @@
 #include "../headers/player.hpp"
+#include <cmath>
 
 bool Player::initTexture()   {
     if (!this->PlayerTexture.loadFromFile("gfx/Ship.png"))
@@ -18,7 +19,7 @@ Player::Player()    {
     this->left = false;
     this->right = false;
     this->PlayerShape.setRadius(30.f);
-    this->PlayerShape.setOrigin(sf::Vector2f(20.f, 20.f));
+    this->PlayerShape.setOrigin(sf::Vector2f(30.f, 30.f));
     this->PlayerShape.setPosition(sf::Vector2f(400.f, 300.f));
     this->initTexture();
 }
@@ -119,4 +120,18 @@ void Player::drawBullets(sf::RenderWindow &window)  {
     for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
         window.draw(it->show());
     }
+}
+
+void Player::lookAtMouse(sf::RenderWindow &window){
+    sf::Vector2f position = this->PlayerShape.getPosition();
+    sf::Vector2i curPos = sf::Mouse::getPosition(window);
+
+    const float PI = 3.14159265;
+
+    float dx = curPos.x - position.x;
+    float dy = curPos.y - position.y;
+
+    float rotation = (std::atan2(dy, dx) * 180) / PI + 90;
+
+    this->PlayerShape.setRotation(rotation);
 }

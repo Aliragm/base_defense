@@ -37,6 +37,7 @@ int main() {
         float dt = clock.restart().asSeconds();
 
         // Atualização
+        Player.lookAtMouse(window);
         Player.updateVelocity();
         Player.checkCollisions();
         Player.updateBullets(Enemies.showVector(), dt);
