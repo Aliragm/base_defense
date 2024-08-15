@@ -29,9 +29,11 @@ bullet.o: $(HEADERS) ./classes/bullet.cpp
 ## Compile enemy.cpp
 enemy.o: $(HEADERS) ./classes/enemy.cpp
 	$(CXX) $(CXXFLAGS) ./classes/enemy.cpp -c
+
 ## Compile HUD.cpp
 HUD.o: $(HEADERS) ./classes/HUD.cpp
-    $(CXX) $(CXXFLAGS) ./classes/HUD.cpp -c
+	$(CXX) $(CXXFLAGS) ./classes/HUD.cpp -c
+
 ## Compile player.cpp
 player.o: $(HEADERS) ./classes/bullet.o ./classes/enemy.o ./classes/player.cpp
 	$(CXX) $(CXXFLAGS) ./classes/player.cpp -c
