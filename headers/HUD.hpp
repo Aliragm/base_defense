@@ -7,44 +7,44 @@
 #include "player.hpp"
 #include "base.hpp"
 
-class HUD 
+class HUD {
 public:
     HUD() 
-    : health(100.f),  // Inicializando com algum valor padrão, ajuste conforme necessário
+    : health(100.f),  
       life(0.f),
       ammo(0),
       xp(0.f) 
     {
-public:
-    HUD() {
         // Carregar a fonte
         if (!font.loadFromFile("arial.ttf")) {
             // Lidar com erro de carregamento da fonte
         }
 
         // Configurar os textos
-        healthText.setFont(font);
         lifeText.setFont(font);
         ammoText.setFont(font);
         xpText.setFont(font);
         // ... outras configurações (posição, tamanho, cor, etc.)
     }
 
-  void HUD::update(Player& player, Base& base) { 
-    life = player.life; 
-    ammo = player.ammo;
-    xp = player.xp;
-    health = base.health; // Obter a vida da base
-  
- }
+    void update(Player& player, Base& base) { 
+        life = player.life; 
+        ammo = player.ammo;
+        xp = player.xp;
+        health = base.health;
 
- 
+        // Atualizar o texto dos elementos do HUD
+        lifeText.setString("Vida: " + std::to_string(life));
+        ammoText.setString("Munição: " + std::to_string(ammo));
+        xpText.setString("XP: " + std::to_string(xp)); 
+        healthText.setString("Base: " + std::to_string(health)); 
+    }
 
     void draw(sf::RenderWindow& window) {
-        window.draw(healthText);
         window.draw(lifeText);
         window.draw(ammoText);
         window.draw(xpText);
+        window.draw(healthText);
         // Desenhar outros elementos do HUD (barras de vida, etc.)
     }
 
@@ -55,12 +55,9 @@ private:
     sf::Text ammoText;
     sf::Text xpText;
     float health;
-    float life;
+    int life; 
     int ammo;
     float xp;
 };
 
 #endif
-
-
-  
