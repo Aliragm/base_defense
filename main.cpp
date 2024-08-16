@@ -18,6 +18,7 @@ int main() {
     Base Base;
     Player Player;
     Enemy Enemies;
+    HUD hud;
     // Vetores
     sf::Vector2f playerCenter;
     sf::Vector2f mousePosWindow;
