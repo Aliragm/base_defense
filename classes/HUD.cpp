@@ -1,4 +1,4 @@
-#include "../headers/hud.hpp"
+#include "../headers/HUD.hpp"
 #include <iostream> // Para lidar com o erro de carregamento da fonte
 
 // Construtor da classe HUD
