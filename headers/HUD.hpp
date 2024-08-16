@@ -8,7 +8,7 @@
 
 class HUD {
 public:
-    hud();
+    HUD();
     void update(Player& player, Base& base);
     void draw(sf::RenderWindow& window);
 
