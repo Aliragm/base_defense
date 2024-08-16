@@ -15,6 +15,7 @@ Enemy::Enemy() {
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->maxSpeed = 100.f;
     this->shootClock.restart();
+    this->dropEnemy.chooseDrop();
 }
 
 Enemy::~Enemy() {}
@@ -98,4 +99,8 @@ void Enemy::drawBulletsEnemy(sf::RenderWindow& window) {
     for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
         window.draw(it->show());
     }
+}
+
+drop& Enemy::showDrop(){
+    return this->dropEnemy;
 }
