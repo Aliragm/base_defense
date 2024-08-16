@@ -56,4 +56,4 @@ clean-obj:
 
 ## Clean only project
 clean-project:
-	rm -f project
+	rm -f project °₢ 
