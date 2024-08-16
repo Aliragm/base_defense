@@ -1,7 +1,7 @@
 #include "../headers/HUD.hpp"
 #include <iostream> // Para lidar com o erro de carregamento da fonte
 
-// Construtor da classe HUD
+// Construtor da classe HUD (definição correta)
 HUD::HUD() 
 : health(100.f),  
   life(0.f),
@@ -39,10 +39,10 @@ HUD::HUD()
 
 // Método para atualizar as informações do HUD
 void HUD::update(Player& player, Base& base) { 
-    life = player.life; 
-    ammo = player.ammo;
-    xp = player.xp;
-    health = base.health; // Obter a vida da base
+    life = player.getLife();  // Usar o getter
+    ammo = player.getAmmo();  // Usar o getter
+    xp = player.getXp();      // Usar o getter
+    health = base.getHealth(); // Usar o getter
 
     // Atualizar o texto dos elementos do HUD
     lifeText.setString("Vida: " + std::to_string(life));
