@@ -97,7 +97,7 @@ int main() {
             float lengthTemp = sqrt(pow(aimDirEnemyMov.x, 2) + pow(aimDirEnemyMov.y, 2));
             aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
             it->UpdateVelocity(dt, aimDirNormEnemyMov);
-        }    HUD.draw(window);
+        }    hud.draw(window);
         window.display();
     }
 
