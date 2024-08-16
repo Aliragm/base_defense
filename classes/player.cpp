@@ -103,6 +103,7 @@ void Player::updateBullets(std::vector<Enemy> &enemies, float dt) {
             for (std::vector<Enemy>::iterator enemyIt = enemies.begin(); enemyIt != enemies.end(); ++enemyIt) {
                 if (bulletIt->show().getGlobalBounds().intersects(enemyIt->show().getGlobalBounds())) {
                     bulletIt = bullets.erase(bulletIt);
+                    enemyIt->showDrop().spawn(enemyIt->show().getPosition(), enemyIt->showDrop());
                     enemies.erase(enemyIt);
                     bulletRemoved = true;
                     break;

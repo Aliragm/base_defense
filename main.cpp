@@ -5,6 +5,7 @@
 #include "headers/base.hpp"
 #include "headers/player.hpp"
 #include "headers/enemy.hpp"
+#include "headers/drops.hpp"
 
 // clang++ prototipo.cpp -o protipo -I/usr/local/Cellar/sfml/2.6.1/include -L/usr/local/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -20,6 +21,7 @@ int main() {
     Base Base;
     Player Player;
     Enemy Enemies;
+    drop drops;
     // Vetores
     sf::Vector2f playerCenter;
     sf::Vector2f mousePosWindow;
@@ -89,6 +91,7 @@ int main() {
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->drawBulletsEnemy(window);
         }
+        drops.drawDrops(window);
         window.draw(Player.show());
         //não está otimizado, porém foi assim que eu pensei e consegui
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
@@ -97,6 +100,7 @@ int main() {
             aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
             it->UpdateVelocity(dt, aimDirNormEnemyMov);
         }
+        drops.checkUndraw();
         window.display();
     }
 
