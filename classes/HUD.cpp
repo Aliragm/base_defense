@@ -38,7 +38,7 @@ HUD::HUD()
 }
 
 // Método para atualizar as informações do HUD
-void HUD::update(Player& player, Base& base) { 
+void hud::update(Player& player, Base& base) { 
     life = player.getLife();  // Usar o getter
     ammo = player.getAmmo();  // Usar o getter
     xp = player.getXp();      // Usar o getter
@@ -52,7 +52,7 @@ void HUD::update(Player& player, Base& base) {
 }
 
 // Método para desenhar o HUD na janela
-void HUD::draw(sf::RenderWindow& window) {
+void hud::draw(sf::RenderWindow& window) {
     window.draw(healthText);
     window.draw(lifeText);
     window.draw(ammoText);
