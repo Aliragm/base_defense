@@ -60,6 +60,7 @@ private:
     float xp;
 };
 
+#endif
 
 
   
