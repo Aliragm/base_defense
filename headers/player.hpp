@@ -34,6 +34,12 @@ class Player    {
         void shootBullet(sf::Vector2f aimDirNorm);
         void updateBullets(std::vector<Enemy> &enemies, float dt);
         void drawBullets(sf::RenderWindow &window);
+
+
+ 
+    int getLife() const { return life; }
+    int getAmmo() const { return ammo; }
+    float getXp() const { return xp; }
 };
 
 #endif

@@ -12,6 +12,7 @@ class Base : public sf::RectangleShape  {
         Base();
         ~Base();
         sf::RectangleShape show();
+           float getHealth() const { return health; }
 };
 
 
