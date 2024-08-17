@@ -34,6 +34,7 @@ class Player    {
         void shootBullet(sf::Vector2f aimDirNorm);
         void updateBullets(std::vector<Enemy> &enemies, float dt);
         void drawBullets(sf::RenderWindow &window);
+        void lookAtMouse(sf::RenderWindow &window);
 };
 
 #endif
