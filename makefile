@@ -15,6 +15,9 @@ HEADERS = ./headers/base.hpp ./headers/bullet.hpp ./headers/enemy.hpp ./headers/
 ## Compiler flags
 override CXXFLAGS += -g -Wall -pedantic
 
+## SFML libraries (including audio)
+SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
 ## Compile all
 all: base.o bullet.o enemy.o player.o drops.o main.o project
 
@@ -44,7 +47,7 @@ main.o: $(HEADERS) main.cpp
 
 ## Link all object files
 project: $(HEADERS) $(SRCS)
-	$(CXX) $(SRCS) $(CXXFLAGS) -o project -lsfml-graphics -lsfml-window -lsfml-system
+	$(CXX) $(SRCS) $(CXXFLAGS) -o project $(SFML_LIBS)
 
 ## Clean object files and project
 clean:
