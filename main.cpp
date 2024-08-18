@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Music.hpp>
 #include <iostream>
 #include <math.h>
 #include <cstdlib>
@@ -18,6 +19,11 @@ int main() {
     sf::Texture BackgroundTexture;
     BackgroundTexture.loadFromFile("gfx/Background.png");
     Background.setTexture(&BackgroundTexture);
+    sf::Music game_music;
+    game_music.openFromFile("gfx/game_music.ogg");
+    game_music.setLoop(true);
+    game_music.setVolume(50.f);
+    game_music.play();
     Base Base;
     Player Player;
     Enemy Enemies;
