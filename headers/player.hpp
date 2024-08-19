@@ -39,6 +39,7 @@ class Player    {
         void drawBullets(sf::RenderWindow &window);
         void takeDamage(float damage);
         bool isAlive();
+        void lookAtMouse(sf::RenderWindow &window);
 };
 
 #endif

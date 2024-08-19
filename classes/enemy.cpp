@@ -10,13 +10,14 @@ std::vector<Bullet> Enemy::bullets;
 Enemy::Enemy() {
     this->life = 100.f;
     this->enemyShape.setSize(sf::Vector2f(20.0f, 20.0f)); // Ajuste de tamanho para melhor visualização
+    this->enemyShape.setOrigin(10.f, 10.f);
     this->enemyShape.setFillColor(sf::Color::Green);
     this->enemyShape.setOutlineThickness(1.f);
     this->enemyShape.setOutlineColor(sf::Color::Black);
-    this->enemyShape.setOrigin(20.f, 20.f);
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->maxSpeed = 100.f;
     this->shootClock.restart();
+    this->dropEnemy.chooseDrop();
 }
 
 Enemy::~Enemy() {}
@@ -109,4 +110,8 @@ void Enemy::drawBulletsEnemy(sf::RenderWindow& window) {
     for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
         window.draw(it->show());
     }
+}
+
+drop& Enemy::showDrop(){
+    return this->dropEnemy;
 }

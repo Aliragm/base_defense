@@ -7,6 +7,8 @@ class Base : public sf::RectangleShape  {
     private:
         float health;
         sf::RectangleShape structure;
+        sf::Texture BaseTexture;
+        bool initTexture();
 
     public:
         Base();

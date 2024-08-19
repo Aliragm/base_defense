@@ -1,11 +1,10 @@
 #include "../headers/player.hpp"
 #include "../headers/enemy.hpp"
+#include <cmath>
 
 bool Player::initTexture()   {
-    if (!this->PlayerTexture.loadFromFile("gfx/Player.png"))   {
-        std::cout << "ERROR: Could not load player texture" << std::endl;
+    if (!this->PlayerTexture.loadFromFile("gfx/Ship.png"))
         return 1;
-    }
 
     this->PlayerShape.setTexture(&this->PlayerTexture);
     return 0;
@@ -20,8 +19,8 @@ Player::Player()    {
     this->down = false;
     this->left = false;
     this->right = false;
-    this->PlayerShape.setRadius(20.f);
-    this->PlayerShape.setOrigin(sf::Vector2f(20.f, 20.f));
+    this->PlayerShape.setRadius(30.f);
+    this->PlayerShape.setOrigin(sf::Vector2f(30.f, 30.f));
     this->PlayerShape.setPosition(sf::Vector2f(400.f, 300.f));
     this->Hitbox.setSize(sf::Vector2f(40.f, 40.f));
     this->Hitbox.setFillColor(sf::Color::Transparent);
@@ -119,6 +118,7 @@ void Player::updateBullets(std::vector<Enemy> &enemies, float dt) {
             for (std::vector<Enemy>::iterator enemyIt = enemies.begin(); enemyIt != enemies.end(); ++enemyIt) {
                 if (bulletIt->show().getGlobalBounds().intersects(enemyIt->show().getGlobalBounds())) {
                     bulletIt = bullets.erase(bulletIt);
+                    enemyIt->showDrop().spawn(enemyIt->show().getPosition(), enemyIt->showDrop());
                     enemies.erase(enemyIt);
                     bulletRemoved = true;
                     break;
@@ -148,4 +148,32 @@ bool Player::isAlive(){
     else{
         return true;
     }
+}
+
+void Player::lookAtMouse(sf::RenderWindow &window){
+    sf::Vector2f position = this->PlayerShape.getPosition();
+    sf::Vector2i curPos = sf::Mouse::getPosition(window);
+
+    const float PI = 3.14159265;
+
+    float dx = curPos.x - position.x;
+    float dy = curPos.y - position.y;
+
+    float rotation = (std::atan2(dy, dx) * 180) / PI + 90;
+
+    this->PlayerShape.setRotation(rotation);
+}
+
+void Player::lookAtMouse(sf::RenderWindow &window){
+    sf::Vector2f position = this->PlayerShape.getPosition();
+    sf::Vector2i curPos = sf::Mouse::getPosition(window);
+
+    const float PI = 3.14159265;
+
+    float dx = curPos.x - position.x;
+    float dy = curPos.y - position.y;
+
+    float rotation = (std::atan2(dy, dx) * 180) / PI + 90;
+
+    this->PlayerShape.setRotation(rotation);
 }

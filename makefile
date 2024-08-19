@@ -7,16 +7,19 @@ else
 endif
 
 ## Project object files
-SRCS = ./classes/base.o ./classes/bullet.o ./classes/enemy.o ./classes/player.o main.o
+SRCS = ./classes/base.o ./classes/bullet.o ./classes/enemy.o ./classes/player.o ./classes/drops.o main.o
 
 ## Project header files
-HEADERS = ./headers/base.hpp ./headers/bullet.hpp ./headers/enemy.hpp ./headers/player.hpp
+HEADERS = ./headers/base.hpp ./headers/bullet.hpp ./headers/enemy.hpp ./headers/player.hpp ./headers/drops.hpp
 
 ## Compiler flags
 override CXXFLAGS += -g -Wall -pedantic
 
+## SFML libraries (including audio)
+SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
 ## Compile all
-all: base.o bullet.o enemy.o player.o main.o project
+all: base.o bullet.o enemy.o player.o drops.o main.o project
 
 ## Compile base.cpp
 base.o: $(HEADERS) ./classes/base.cpp
@@ -34,13 +37,17 @@ enemy.o: $(HEADERS) ./classes/enemy.cpp
 player.o: $(HEADERS) ./classes/bullet.o ./classes/enemy.o ./classes/player.cpp
 	$(CXX) $(CXXFLAGS) ./classes/player.cpp -c
 
+## Compile drops.cpp
+drops.o: $(HEADERS) ./classes/drops.cpp
+	$(CXX) $(CXXFLAGS) ./classes/drops.cpp -c
+
 ## Compile main.cpp
 main.o: $(HEADERS) main.cpp
 	$(CXX) $(CXXFLAGS) main.cpp -c
 
 ## Link all object files
 project: $(HEADERS) $(SRCS)
-	$(CXX) $(SRCS) $(CXXFLAGS) -o project -lsfml-graphics -lsfml-window -lsfml-system
+	$(CXX) $(SRCS) $(CXXFLAGS) -o project $(SFML_LIBS)
 
 ## Clean object files and project
 clean:

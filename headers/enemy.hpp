@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "bullet.hpp"
+#include "drops.hpp"
 
 class Player;
 class Base;
@@ -19,6 +20,7 @@ private:
     static sf::Clock spawnClock; // Adiciona um relógio para medir o tempo entre spawns
     static int spawnCounter;
     sf::Clock shootClock;
+    drop dropEnemy;
 public:
     Enemy();
     ~Enemy();
@@ -31,6 +33,7 @@ public:
     void shoot(sf::Vector2f aimDirNormEnemy, float dt);
     void updateBulletsEnemy(float dt, Player& player, Base& base);
     void drawBulletsEnemy(sf::RenderWindow& window);
+    drop& showDrop();
 };
 
 #endif
