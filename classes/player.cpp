@@ -163,17 +163,3 @@ void Player::lookAtMouse(sf::RenderWindow &window){
 
     this->PlayerShape.setRotation(rotation);
 }
-
-void Player::lookAtMouse(sf::RenderWindow &window){
-    sf::Vector2f position = this->PlayerShape.getPosition();
-    sf::Vector2i curPos = sf::Mouse::getPosition(window);
-
-    const float PI = 3.14159265;
-
-    float dx = curPos.x - position.x;
-    float dy = curPos.y - position.y;
-
-    float rotation = (std::atan2(dy, dx) * 180) / PI + 90;
-
-    this->PlayerShape.setRotation(rotation);
-}
