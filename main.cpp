@@ -1,10 +1,12 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Music.hpp>
 #include <iostream>
 #include <math.h>
 #include <cstdlib>
 #include "headers/base.hpp"
 #include "headers/player.hpp"
 #include "headers/enemy.hpp"
+#include "headers/drops.hpp"
 #include "headers/HUD.hpp"
 
 // clang++ prototipo.cpp -o protipo -I/usr/local/Cellar/sfml/2.6.1/include -L/usr/local/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
@@ -15,9 +17,18 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "BaseDefense");
     sf::RectangleShape Background(sf::Vector2f(800.f, 600.f));
     Background.setFillColor(sf::Color::White);
+    sf::Texture BackgroundTexture;
+    BackgroundTexture.loadFromFile("gfx/Background.png");
+    Background.setTexture(&BackgroundTexture);
+    sf::Music game_music;
+    game_music.openFromFile("gfx/game_music.ogg");
+    game_music.setLoop(true);
+    game_music.setVolume(50.f);
+    game_music.play();
     Base Base;
     Player Player;
     Enemy Enemies;
+    drop drops;
     HUD hud;
     // Vetores
     sf::Vector2f playerCenter;
@@ -37,6 +48,7 @@ int main() {
         float dt = clock.restart().asSeconds();
 
         // Atualização
+        Player.lookAtMouse(window);
         Player.updateVelocity();
         Player.checkCollisions();
         Player.updateBullets(Enemies.showVector(), dt);
@@ -91,6 +103,7 @@ int main() {
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->drawBulletsEnemy(window);
         }
+        drops.drawDrops(window);
         window.draw(Player.show());
         //não está otimizado, porém foi assim que eu pensei e consegui
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
@@ -98,7 +111,9 @@ int main() {
             float lengthTemp = sqrt(pow(aimDirEnemyMov.x, 2) + pow(aimDirEnemyMov.y, 2));
             aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
             it->UpdateVelocity(dt, aimDirNormEnemyMov);
-        }    hud.draw(window);
+        }
+        hud.draw(window);
+        drops.checkUndraw();
         window.display();
     }
 
