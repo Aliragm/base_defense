@@ -7,6 +7,7 @@
 #include "headers/player.hpp"
 #include "headers/enemy.hpp"
 #include "headers/drops.hpp"
+#include "headers/HUD.hpp"
 
 // clang++ prototipo.cpp -o protipo -I/usr/local/Cellar/sfml/2.6.1/include -L/usr/local/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -28,6 +29,7 @@ int main() {
     Player Player;
     Enemy Enemies;
     drop drops;
+    HUD hud;
     // Vetores
     sf::Vector2f playerCenter;
     sf::Vector2f mousePosWindow;
@@ -42,6 +44,7 @@ int main() {
 
     // Loop do jogo
     while (window.isOpen()) {
+        
         float dt = clock.restart().asSeconds();
 
         // Atualização
@@ -89,12 +92,14 @@ int main() {
         }
 
         // Desenho
+    
         window.clear();
         window.draw(Background);
         window.draw(Base.show());
         Enemies.Spawner(); // Chama o Spawner para criar os inimigos
         Enemies.DrawEnemies(window); // Desenha os inimigos na janela
-        Player.drawBullets(window);
+        Player.drawBullets(window);   
+    
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->drawBulletsEnemy(window);
         }
@@ -107,6 +112,8 @@ int main() {
             aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
             it->UpdateVelocity(dt, aimDirNormEnemyMov);
         }
+        hud.update(Player, Base);
+        hud.draw(window);
         drops.checkUndraw();
         window.display();
     }
