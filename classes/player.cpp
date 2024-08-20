@@ -136,3 +136,15 @@ void Player::lookAtMouse(sf::RenderWindow &window){
 
     this->PlayerShape.setRotation(rotation);
 }
+
+float Player::showLife(){
+    return this->life;
+}
+
+float Player::showAmmo(){
+    return this->ammo;
+}
+
+float Player::showXp(){
+    return this->xp;
+}

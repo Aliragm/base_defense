@@ -7,11 +7,6 @@
 #include "base.hpp"
 
 class HUD {
-public:
-    HUD();
-    void update(Player& player, Base& base);
-    void draw(sf::RenderWindow& window);
-
 private:
     sf::Font font;
     sf::Text healthText;
@@ -22,6 +17,10 @@ private:
     int life; 
     int ammo;
     float xp;
+public:
+    HUD();
+    void update(Player& player, Base& base);
+    void draw(sf::RenderWindow& window);
 };
 
 #endif

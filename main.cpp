@@ -112,6 +112,7 @@ int main() {
             aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
             it->UpdateVelocity(dt, aimDirNormEnemyMov);
         }
+        hud.update(Player, Base);
         hud.draw(window);
         drops.checkUndraw();
         window.display();
