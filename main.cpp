@@ -15,13 +15,18 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "BaseDefense");
     sf::RectangleShape Background(sf::Vector2f(800.f, 600.f));
     Background.setFillColor(sf::Color::White);
+    // Inicialização de algumas texturas
     sf::Texture BackgroundTexture;
     BackgroundTexture.loadFromFile("gfx/Background.png");
     Background.setTexture(&BackgroundTexture);
-    Base Base;
-    Player Player;
     sf::Texture EnemyTexture;
+    sf::Texture DropTextures[3];
+    DropTextures[0].loadFromFile("gfx/Ammo.png");
+    DropTextures[1].loadFromFile("gfx/Xp.png");
+    DropTextures[2].loadFromFile("gfx/Life.png");
     EnemyTexture.loadFromFile("gfx/Enemy.png");
+    Player Player;
+    Base Base;
     Enemy Enemies;
     drop drops;
     // Vetores
@@ -44,7 +49,7 @@ int main() {
         Player.lookAtMouse(window);
         Player.updateVelocity();
         Player.checkCollisions();
-        Player.updateBullets(Enemies.showVector(), dt);
+        Player.updateBullets(Enemies.showVector(), dt, DropTextures);
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->updateBulletsEnemy(dt);
         }

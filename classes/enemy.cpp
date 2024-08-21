@@ -8,12 +8,11 @@ std::vector<Bullet> Enemy::bullets;
 
 Enemy::Enemy() {
     this->life = 100.f;
-    this->enemyShape.setSize(sf::Vector2f(20.0f, 20.0f)); // Ajuste de tamanho para melhor visualização
-    this->enemyShape.setOrigin(10.f, 10.f);
+    this->enemyShape.setSize(sf::Vector2f(30.0f, 30.0f)); // Ajuste de tamanho para melhor visualização
+    this->enemyShape.setOrigin(15.f, 15.f);
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->maxSpeed = 100.f;
     this->shootClock.restart();
-    this->dropEnemy.chooseDrop();
     this->enemyShape.setFillColor(sf::Color::Green);
     this->enemyShape.setOutlineThickness(1.f);
     this->enemyShape.setOutlineColor(sf::Color::Black);
@@ -26,7 +25,6 @@ Enemy::Enemy(sf::Texture *enemyTexture) {
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->maxSpeed = 100.f;
     this->shootClock.restart();
-    this->dropEnemy.chooseDrop();
     this->enemyShape.setTexture(enemyTexture);
 }
 

@@ -31,7 +31,7 @@ class Player    {
         void updateVelocity();
         void checkCollisions();
         void shootBullet(sf::Vector2f aimDirNorm);
-        void updateBullets(std::vector<Enemy> &enemies, float dt);
+        void updateBullets(std::vector<Enemy> &enemies, float dt, sf::Texture *DropTextures);
         void drawBullets(sf::RenderWindow &window);
         void lookAtMouse(sf::RenderWindow &window);
         sf::Vector2f getPosition();
