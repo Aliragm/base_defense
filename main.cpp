@@ -102,6 +102,7 @@ int main() {
             float lengthTemp = sqrt(pow(aimDirEnemyMov.x, 2) + pow(aimDirEnemyMov.y, 2));
             aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
             it->UpdateVelocity(dt, aimDirNormEnemyMov);
+            it->lookAtPlayer(window, Player.getPosition());
         }
         drops.checkUndraw();
         window.display();

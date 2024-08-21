@@ -32,6 +32,7 @@ public:
     void updateBulletsEnemy(float dt);
     void drawBulletsEnemy(sf::RenderWindow& window);
     drop& showDrop();
+    void lookAtPlayer(sf::RenderWindow& window, sf::Vector2f playerPos);
 };
 
 #endif

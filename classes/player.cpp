@@ -136,3 +136,7 @@ void Player::lookAtMouse(sf::RenderWindow &window){
 
     this->PlayerShape.setRotation(rotation);
 }
+
+sf::Vector2f Player::getPosition()  {
+    return this->PlayerShape.getPosition();
+}

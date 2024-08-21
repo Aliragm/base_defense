@@ -1,4 +1,5 @@
 #include "../headers/enemy.hpp"
+#include <cmath>
 
 std::vector<Enemy> Enemy::enemies;
 sf::Clock Enemy::spawnClock; // Inicializa o relógio
@@ -114,4 +115,17 @@ void Enemy::drawBulletsEnemy(sf::RenderWindow& window) {
 
 drop& Enemy::showDrop(){
     return this->dropEnemy;
+}
+
+void Enemy::lookAtPlayer(sf::RenderWindow& window, sf::Vector2f playerPos)   {
+    sf::Vector2f position = this->enemyShape.getPosition();
+
+    const float PI = 3.14159265;
+
+    float dx = playerPos.x - position.x;
+    float dy = playerPos.y - position.y;
+
+    float rotation = (std::atan2(dy, dx) * 180) / PI + 90;
+
+    this->enemyShape.setRotation(rotation);
 }
