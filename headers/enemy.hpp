@@ -20,10 +20,11 @@ private:
     drop dropEnemy;
 public:
     Enemy();
+    Enemy(sf::Texture *enemyTexture);
     ~Enemy();
     sf::RectangleShape& show();
     static std::vector<Enemy>& showVector();
-    static void Spawner();
+    static void Spawner(sf::Texture *enemyTexture);
     void UpdateVelocity(float dt,  sf::Vector2f aimDirNormEnemy);
     static void DrawEnemies(sf::RenderWindow& window);
     const sf::Vector2f& showPos();

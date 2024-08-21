@@ -9,13 +9,24 @@ Enemy::Enemy() {
     this->life = 100.f;
     this->enemyShape.setSize(sf::Vector2f(20.0f, 20.0f)); // Ajuste de tamanho para melhor visualização
     this->enemyShape.setOrigin(10.f, 10.f);
-    this->enemyShape.setFillColor(sf::Color::Green);
-    this->enemyShape.setOutlineThickness(1.f);
-    this->enemyShape.setOutlineColor(sf::Color::Black);
     this->velocity = sf::Vector2f(0.f, 0.f);
     this->maxSpeed = 100.f;
     this->shootClock.restart();
     this->dropEnemy.chooseDrop();
+    this->enemyShape.setFillColor(sf::Color::Green);
+    this->enemyShape.setOutlineThickness(1.f);
+    this->enemyShape.setOutlineColor(sf::Color::Black);
+}
+
+Enemy::Enemy(sf::Texture *enemyTexture) {
+    this->life = 100.f;
+    this->enemyShape.setSize(sf::Vector2f(40.0f, 40.0f)); // Ajuste de tamanho para melhor visualização
+    this->enemyShape.setOrigin(20.f, 20.f);
+    this->velocity = sf::Vector2f(0.f, 0.f);
+    this->maxSpeed = 100.f;
+    this->shootClock.restart();
+    this->dropEnemy.chooseDrop();
+    this->enemyShape.setTexture(enemyTexture);
 }
 
 Enemy::~Enemy() {}
@@ -28,9 +39,9 @@ std::vector<Enemy>& Enemy::showVector() {
     return enemies;
 }
 
-void Enemy::Spawner() {
+void Enemy::Spawner(sf::Texture *enemyTexture) {
     if (spawnClock.getElapsedTime().asSeconds() >= 2.0f && enemies.size() < 20) { // Verifica se passaram 2 segundos
-        Enemy newEnemy;
+        Enemy newEnemy(enemyTexture);
         int retangleSide = std::rand() % 4;
 
         //  Escolhe um dos 4 lados da tela aleatóriamente para spawnar

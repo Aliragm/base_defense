@@ -20,6 +20,8 @@ int main() {
     Background.setTexture(&BackgroundTexture);
     Base Base;
     Player Player;
+    sf::Texture EnemyTexture;
+    EnemyTexture.loadFromFile("gfx/Enemy.png");
     Enemy Enemies;
     drop drops;
     // Vetores
@@ -86,7 +88,7 @@ int main() {
         window.clear();
         window.draw(Background);
         window.draw(Base.show());
-        Enemies.Spawner(); // Chama o Spawner para criar os inimigos
+        Enemies.Spawner(&EnemyTexture); // Chama o Spawner para criar os inimigos
         Enemies.DrawEnemies(window); // Desenha os inimigos na janela
         Player.drawBullets(window);
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
