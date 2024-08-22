@@ -28,9 +28,7 @@ Enemy::Enemy(sf::Texture *enemyTexture) {
     this->enemyShape.setTexture(enemyTexture);
 }
 
-Enemy::~Enemy() {
-    this->enemyShape.setTexture(nullptr);
-}
+Enemy::~Enemy() {}
 
 sf::RectangleShape& Enemy::show() {
     return this->enemyShape;
@@ -87,10 +85,10 @@ const sf::Vector2f& Enemy::showPos() {
 void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt, sf::Texture *EnemyBullet) {
     // Adicionei um intervalo de tempo para os disparos
     if (shootClock.getElapsedTime().asSeconds() >= 1.0f) { // Ajuste o intervalo conforme necessário
-        Bullet *newBullet = new Bullet(200, 50, EnemyBullet);
-        newBullet->show().setPosition(this->enemyShape.getPosition());
-        newBullet->receiveVelocity(aimDirNormEnemy * newBullet->showMaxspeed());
-        bullets.push_back(*newBullet);
+        Bullet newBullet(200, 50, EnemyBullet);
+        newBullet.show().setPosition(this->enemyShape.getPosition());
+        newBullet.receiveVelocity(aimDirNormEnemy * newBullet.showMaxspeed());
+        bullets.push_back(newBullet);
         shootClock.restart(); // Reinicia o relógio após disparar uma bala
     }
 }
@@ -128,4 +126,9 @@ void Enemy::lookAtPlayer(sf::RenderWindow& window, sf::Vector2f playerPos)   {
     float rotation = (std::atan2(dy, dx) * 180) / PI + 90;
 
     this->enemyShape.setRotation(rotation);
+}
+
+void Enemy::clearAll()  {
+    bullets.clear();
+    enemies.clear();
 }

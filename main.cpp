@@ -80,6 +80,7 @@ int main() {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
+                Enemies.clearAll();
                 window.close();
             }
             if (event.type == sf::Event::KeyPressed) {

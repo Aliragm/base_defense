@@ -30,6 +30,7 @@ class Enemy {
         const sf::Vector2f& showPos();
         void shoot(sf::Vector2f aimDirNormEnemy, float dt, sf::Texture *EnemyBullet);
         void updateBulletsEnemy(float dt);
+        void clearAll();
         void drawBulletsEnemy(sf::RenderWindow& window);
         drop& showDrop();
         void lookAtPlayer(sf::RenderWindow& window, sf::Vector2f playerPos);

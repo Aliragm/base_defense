@@ -28,7 +28,7 @@ Player::Player()    {
 }
 
 Player::~Player()   {
-    this->PlayerShape.setTexture(nullptr);
+    this->bullets.clear();
 }
 
 sf::CircleShape Player::show()  {

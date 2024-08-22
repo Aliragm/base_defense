@@ -24,9 +24,7 @@ sf::RectangleShape& Bullet::show()  {
     return this->bulletShape;
 }
 
-Bullet::~Bullet()   {
-    this->bulletShape.setTexture(nullptr);
-}
+Bullet::~Bullet()   {}
 
 void Bullet::receiveVelocity(sf::Vector2f velocityReceived){
     this->velocity = velocityReceived;
