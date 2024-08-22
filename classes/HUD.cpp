@@ -11,7 +11,7 @@ HUD::HUD()
       xp(0.f) 
 {
     // Carregar a fonte
-    if (!font.loadFromFile("8-BIT WONDER.ttf")) {
+    if (!font.loadFromFile('8-BIT WONDER.TTF')) {
         std::cerr << "Erro ao carregar a fonte gfx/8-BIT.ttf!" << std::endl; 
         // Você pode querer lançar uma exceção ou fechar o jogo aqui, dependendo do seu design:
         // throw std::runtime_error("Erro ao carregar a fonte gfx/arial.ttf");
