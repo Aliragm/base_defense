@@ -27,7 +27,9 @@ Player::Player()    {
     this->initTexture();
 }
 
-Player::~Player()   {}
+Player::~Player()   {
+    this->PlayerShape.setTexture(nullptr);
+}
 
 sf::CircleShape Player::show()  {
     return this->PlayerShape;

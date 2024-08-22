@@ -13,6 +13,7 @@ class Bullet {
     public:
         Bullet();
         Bullet(float maxSpeed, float damage, sf::Texture *BulletTextures);
+        ~Bullet();
         sf::RectangleShape& show();
         void receiveVelocity(sf::Vector2f velocityReceived);
         float showMaxspeed();
