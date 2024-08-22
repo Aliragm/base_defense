@@ -11,36 +11,36 @@ HUD::HUD()
       xp(0.f) 
 {
     // Carregar a fonte
-    if (!font.loadFromFile("gfx/arial.ttf")) {
-        std::cerr << "Erro ao carregar a fonte gfx/arial.ttf!" << std::endl; 
+    if (!font.loadFromFile("gfx/font.ttf")) {
+        std::cerr << "Erro ao carregar a fonte gfx/8-BIT WONDER.TTF!" << std::endl; 
         // Você pode querer lançar uma exceção ou fechar o jogo aqui, dependendo do seu design:
         // throw std::runtime_error("Erro ao carregar a fonte gfx/arial.ttf");
-        // ou
+        // 
         // std::exit(EXIT_FAILURE);
     }
 
     // Configurar os textos do HUD (defina posição, tamanho, cor, etc.)
     healthText.setFont(font);
     healthText.setCharacterSize(20); 
-    healthText.setFillColor(sf::Color::Red);
+    healthText.setFillColor(sf::Color::White);
     healthText.setOutlineColor(sf::Color::Black);
     healthText.setPosition(10, 10); 
 
     lifeText.setFont(font);
     lifeText.setCharacterSize(20); 
-    lifeText.setFillColor(sf::Color::Red);
+    lifeText.setFillColor(sf::Color::White);
     lifeText.setOutlineColor(sf::Color::Black);
     lifeText.setPosition(10, 40); 
 
     ammoText.setFont(font);
     ammoText.setCharacterSize(20); 
-    ammoText.setFillColor(sf::Color::Red);
+    ammoText.setFillColor(sf::Color::White);
     ammoText.setOutlineColor(sf::Color::Black);
     ammoText.setPosition(10, 70); 
 
     xpText.setFont(font);
     xpText.setCharacterSize(20); 
-    xpText.setFillColor(sf::Color::Red);
+    xpText.setFillColor(sf::Color::White);
     xpText.setOutlineColor(sf::Color::Black);
     xpText.setPosition(10, 100); 
 }
@@ -56,10 +56,10 @@ void HUD::update(Player& player, Base& base) {
     // Usar ostringstream para formatar os números com duas casas decimais
     std::ostringstream ossLife, ossAmmo, ossXp, ossHealth;
 
-    ossLife << "Life: " << std::fixed << std::setprecision(2) << life;
-    ossAmmo << "Ammo: " << std::fixed << std::setprecision(2) << ammo;
-    ossXp << "XP: " << std::fixed << std::setprecision(2) << xp;
-    ossHealth << "Base: " << std::fixed << std::setprecision(2) << health;
+    ossLife << "Life " << std::fixed << std::setprecision(0) << life;
+    ossAmmo << "Ammo " << std::fixed << std::setprecision(0) << ammo;
+    ossXp << "XP " << std::fixed << std::setprecision(0) << xp;
+    ossHealth << "Base " << std::fixed << std::setprecision(0) << health;
 
     // Atualizar o texto dos elementos do HUD com os valores formatados
     lifeText.setString(ossLife.str());
