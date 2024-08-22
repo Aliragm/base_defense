@@ -28,6 +28,9 @@ class Player    {
         Player();
         ~Player();
         sf::CircleShape show();
+        float showLife();
+        float showXp();
+        float showAmmo();
         void processEvents(sf::Keyboard::Key key, bool isPressed);
         void updateVelocity();
         void checkCollisions();

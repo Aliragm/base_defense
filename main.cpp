@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Music.hpp>
 #include <iostream>
 #include <math.h>
 #include <cstdlib>
@@ -6,6 +7,7 @@
 #include "headers/player.hpp"
 #include "headers/enemy.hpp"
 #include "headers/drops.hpp"
+#include "headers/HUD.hpp"
 
 // clang++ prototipo.cpp -o protipo -I/usr/local/Cellar/sfml/2.6.1/include -L/usr/local/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
 // At the beggining only god and I knew how this code worked. Now only god knows.
@@ -28,11 +30,18 @@ int main() {
     EnemyTexture.loadFromFile("gfx/Enemy.png");
     sf::Texture EnemyBulletTexture;
     EnemyBulletTexture.loadFromFile("gfx/Enemy_bullet.png");
+    // Música
+    sf::Music game_music;
+    game_music.openFromFile("gfx/game_music.ogg");
+    game_music.setLoop(true);
+    game_music.setVolume(50.f);
+    game_music.play();
     // Classes
     Player Player;
     Base Base;
     Enemy Enemies;
     drop drops;
+    HUD hud;
     // Vetores
     sf::Vector2f playerCenter;
     sf::Vector2f mousePosWindow;
@@ -47,6 +56,7 @@ int main() {
 
     // Loop do jogo
     while (window.isOpen()) {
+        
         float dt = clock.restart().asSeconds();
 
         // Atualização
@@ -95,12 +105,14 @@ int main() {
         }
 
         // Desenho
+    
         window.clear();
         window.draw(Background);
         window.draw(Base.show());
         Enemies.Spawner(&EnemyTexture); // Chama o Spawner para criar os inimigos
         Enemies.DrawEnemies(window); // Desenha os inimigos na janela
-        Player.drawBullets(window);
+        Player.drawBullets(window);   
+    
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->drawBulletsEnemy(window);
         }
@@ -114,6 +126,8 @@ int main() {
             it->UpdateVelocity(dt, aimDirNormEnemyMov);
             it->lookAtPlayer(window, Player.getPosition());
         }
+        hud.update(Player, Base);
+        hud.draw(window);
         drops.checkUndraw();
         window.display();
     }
