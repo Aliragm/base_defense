@@ -82,10 +82,10 @@ const sf::Vector2f& Enemy::showPos() {
     return this->enemyShape.getPosition();
 }
 
-void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt) {
+void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt, sf::Texture *EnemyBullet) {
     // Adicionei um intervalo de tempo para os disparos
     if (shootClock.getElapsedTime().asSeconds() >= 1.0f) { // Ajuste o intervalo conforme necessário
-        Bullet newBullet(200, 50, sf::Color::Red);
+        Bullet newBullet(200, 50, EnemyBullet);
         newBullet.show().setPosition(this->enemyShape.getPosition());
         newBullet.receiveVelocity(aimDirNormEnemy * newBullet.showMaxspeed());
         bullets.push_back(newBullet);
@@ -126,4 +126,9 @@ void Enemy::lookAtPlayer(sf::RenderWindow& window, sf::Vector2f playerPos)   {
     float rotation = (std::atan2(dy, dx) * 180) / PI + 90;
 
     this->enemyShape.setRotation(rotation);
+}
+
+void Enemy::clearAll()  {
+    bullets.clear();
+    enemies.clear();
 }

@@ -4,6 +4,9 @@
 bool Player::initTexture()   {
     if (!this->PlayerTexture.loadFromFile("gfx/Ship.png"))
         return 1;
+    
+    if (!this->PlayerBullet.loadFromFile("gfx/Player_bullet.png"))
+        return 1;
 
     this->PlayerShape.setTexture(&this->PlayerTexture);
     return 0;
@@ -24,7 +27,9 @@ Player::Player()    {
     this->initTexture();
 }
 
-Player::~Player()   {}
+Player::~Player()   {
+    this->bullets.clear();
+}
 
 sf::CircleShape Player::show()  {
     return this->PlayerShape;
@@ -85,7 +90,7 @@ void Player::shootBullet(sf::Vector2f aimDirNorm)   {
     }
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        Bullet newBullet(500, 50);
+        Bullet newBullet(500, 50, &this->PlayerBullet);
         newBullet.show().setPosition(this->PlayerShape.getPosition());
         newBullet.receiveVelocity(aimDirNorm * newBullet.showMaxspeed());
         bullets.push_back(newBullet);
