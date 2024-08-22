@@ -168,8 +168,6 @@ void Player::lookAtMouse(sf::RenderWindow &window){
 
     this->PlayerShape.setRotation(rotation);
 }
-<<<<<<< HEAD
-=======
 
 sf::Vector2f Player::getPosition()  {
     return this->PlayerShape.getPosition();
@@ -186,4 +184,3 @@ float Player::showAmmo(){
 float Player::showXp(){
     return this->xp;
 }
->>>>>>> main
