@@ -16,8 +16,8 @@ class Player    {
         Bullet b1;
         std::vector<Bullet> bullets;
         sf::CircleShape PlayerShape;
-        sf::Sprite PlayerSprite;
         sf::Texture PlayerTexture;
+        sf::Texture PlayerBullet;
         bool up;
         bool down;
         bool left;
@@ -35,9 +35,10 @@ class Player    {
         void updateVelocity();
         void checkCollisions();
         void shootBullet(sf::Vector2f aimDirNorm);
-        void updateBullets(std::vector<Enemy> &enemies, float dt);
+        void updateBullets(std::vector<Enemy> &enemies, float dt, sf::Texture *DropTextures);
         void drawBullets(sf::RenderWindow &window);
         void lookAtMouse(sf::RenderWindow &window);
+        sf::Vector2f getPosition();
 };
 
 #endif

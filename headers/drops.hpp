@@ -20,8 +20,8 @@ class drop{
         drop();
         ~drop();
         sf::RectangleShape& show();
-        void chooseDrop();
-        void spawn(sf::Vector2f pos, drop newDrop);
+        void chooseDrop(sf::Texture* DropTextures);
+        void spawn(sf::Vector2f pos, drop newDrop, sf::Texture* DropTextures);
         void drawDrops(sf::RenderWindow& window);
         float checkTime();
         void checkUndraw();

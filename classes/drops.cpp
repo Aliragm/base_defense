@@ -11,9 +11,7 @@ drop::drop(){
     this->isAmmo = false;
     this->isXp = false;
     this->isLife = false;
-    this->dropShape.setSize(sf::Vector2f(10.f, 10.f));
-    this->dropShape.setFillColor(sf::Color::Black);
-    this->dropShape.setOutlineColor(sf::Color::Red);
+    this->dropShape.setSize(sf::Vector2f(30.0f, 30.0f));
     this->lifeClock.restart();
 }
 
@@ -23,7 +21,7 @@ sf::RectangleShape& drop::show(){
     return this->dropShape;
 }
 
-void drop::chooseDrop(){
+void drop::chooseDrop(sf::Texture* DropTextures){
     // Reseta todos os tipos de drop antes de escolher
     this->isAmmo = false;
     this->isXp = false;
@@ -34,21 +32,24 @@ void drop::chooseDrop(){
     switch (choice){
     case 0: 
         this->isAmmo = true; 
-        this->dropShape.setFillColor(sf::Color::Blue); // Diferenciar visivelmente
+        this->dropShape.setSize(sf::Vector2f(9.0f, 30.0f));
+        this->dropShape.setTexture(&DropTextures[0]); // Diferenciar visivelmente
         break;
     case 1: 
         this->isXp = true; 
-        this->dropShape.setFillColor(sf::Color::Green);
+        this->dropShape.setSize(sf::Vector2f(28.0f, 28.0f));
+        this->dropShape.setTexture(&DropTextures[1]);
         break;
     case 2: 
         this->isLife = true; 
-        this->dropShape.setFillColor(sf::Color::Red);
+        this->dropShape.setSize(sf::Vector2f(32.0f, 32.0f));
+        this->dropShape.setTexture(&DropTextures[2]);
         break;
     }
 }
 
-void drop::spawn(sf::Vector2f pos, drop newDrop){
-    newDrop.chooseDrop(); // Escolha o tipo do drop antes de colocá-lo no jogo
+void drop::spawn(sf::Vector2f pos, drop newDrop, sf::Texture* DropTextures){
+    newDrop.chooseDrop(DropTextures); // Escolha o tipo do drop antes de colocá-lo no jogo
     newDrop.lifeClock.restart();
     newDrop.dropShape.setPosition(pos);
     drops.push_back(newDrop);
