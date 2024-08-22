@@ -21,25 +21,25 @@ HUD::HUD()
 
     // Configurar os textos do HUD (defina posição, tamanho, cor, etc.)
     healthText.setFont(font);
-    healthText.setCharacterSize(20); 
+    healthText.setCharacterSize(40); 
     healthText.setFillColor(sf::Color::White);
     healthText.setOutlineColor(sf::Color::Black);
     healthText.setPosition(10, 10); 
 
     lifeText.setFont(font);
-    lifeText.setCharacterSize(20); 
+    lifeText.setCharacterSize(40); 
     lifeText.setFillColor(sf::Color::White);
     lifeText.setOutlineColor(sf::Color::Black);
     lifeText.setPosition(10, 40); 
 
     ammoText.setFont(font);
-    ammoText.setCharacterSize(20); 
+    ammoText.setCharacterSize(40); 
     ammoText.setFillColor(sf::Color::White);
     ammoText.setOutlineColor(sf::Color::Black);
     ammoText.setPosition(10, 70); 
 
     xpText.setFont(font);
-    xpText.setCharacterSize(20); 
+    xpText.setCharacterSize(40); 
     xpText.setFillColor(sf::Color::White);
     xpText.setOutlineColor(sf::Color::Black);
     xpText.setPosition(10, 100); 
