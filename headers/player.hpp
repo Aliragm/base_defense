@@ -17,6 +17,7 @@ class Player    {
         std::vector<Bullet> bullets;
         sf::CircleShape PlayerShape;
         sf::Texture PlayerTexture;
+        sf::Texture PlayerBullet;
         bool up;
         bool down;
         bool left;

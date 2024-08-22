@@ -8,6 +8,7 @@
 #include "headers/drops.hpp"
 
 // clang++ prototipo.cpp -o protipo -I/usr/local/Cellar/sfml/2.6.1/include -L/usr/local/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
+// At the beggining only me and god knew how this code worked. Now only god knows.
 
 int main() {
     std::srand(time(NULL));
@@ -19,12 +20,14 @@ int main() {
     sf::Texture BackgroundTexture;
     BackgroundTexture.loadFromFile("gfx/Background.png");
     Background.setTexture(&BackgroundTexture);
-    sf::Texture EnemyTexture;
     sf::Texture DropTextures[3];
     DropTextures[0].loadFromFile("gfx/Ammo.png");
     DropTextures[1].loadFromFile("gfx/Xp.png");
     DropTextures[2].loadFromFile("gfx/Life.png");
+    sf::Texture EnemyTexture;
     EnemyTexture.loadFromFile("gfx/Enemy.png");
+    sf::Texture EnemyBulletTexture;
+    EnemyBulletTexture.loadFromFile("gfx/Enemy_bullet.png");
     Player Player;
     Base Base;
     Enemy Enemies;
@@ -68,7 +71,7 @@ int main() {
                 if (lengthEnemy != 0) {
                     aimDirNormEnemy = aimDirEnemy / lengthEnemy;
                 }
-                it->shoot(aimDirNormEnemy, dt);
+                it->shoot(aimDirNormEnemy, dt, &EnemyBulletTexture);
             }
         }
 
