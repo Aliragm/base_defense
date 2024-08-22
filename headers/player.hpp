@@ -18,8 +18,8 @@ class Player    {
         std::vector<Bullet> bullets;
         sf::CircleShape PlayerShape;
         sf::RectangleShape Hitbox;
-        sf::Sprite PlayerSprite;
         sf::Texture PlayerTexture;
+        sf::Texture PlayerBullet;
         bool up;
         bool down;
         bool left;
@@ -30,16 +30,20 @@ class Player    {
         Player();
         ~Player();
         sf::CircleShape show();
+        float showLife();
+        float showXp();
+        float showAmmo();
         sf::RectangleShape showHitbox();
         void processEvents(sf::Keyboard::Key key, bool isPressed);
         void updateVelocity();
         void checkCollisions();
         void shootBullet(sf::Vector2f aimDirNorm);
-        void updateBullets(std::vector<Enemy> &enemies, float dt);
+        void updateBullets(std::vector<Enemy> &enemies, float dt, sf::Texture *DropTextures);
         void drawBullets(sf::RenderWindow &window);
         void takeDamage(float damage);
         bool isAlive();
         void lookAtMouse(sf::RenderWindow &window);
+        sf::Vector2f getPosition();
 };
 
 #endif

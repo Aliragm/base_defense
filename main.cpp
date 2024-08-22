@@ -7,6 +7,8 @@
 #include "headers/player.hpp"
 #include "headers/enemy.hpp"
 #include "headers/drops.hpp"
+#include "headers/HUD.hpp"
+// At the beggining only god and I knew how this code worked. Now only god knows.
 
 int main() {
     std::srand(time(NULL));
@@ -14,18 +16,30 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "BaseDefense");
     sf::RectangleShape Background(sf::Vector2f(800.f, 600.f));
     Background.setFillColor(sf::Color::White);
+    // Inicialização de algumas texturas
     sf::Texture BackgroundTexture;
     BackgroundTexture.loadFromFile("gfx/Background.png");
     Background.setTexture(&BackgroundTexture);
+    sf::Texture DropTextures[3];
+    DropTextures[0].loadFromFile("gfx/Ammo.png");
+    DropTextures[1].loadFromFile("gfx/Xp.png");
+    DropTextures[2].loadFromFile("gfx/Life.png");
+    sf::Texture EnemyTexture;
+    EnemyTexture.loadFromFile("gfx/Enemy.png");
+    sf::Texture EnemyBulletTexture;
+    EnemyBulletTexture.loadFromFile("gfx/Enemy_bullet.png");
+    // Música
     sf::Music game_music;
     game_music.openFromFile("gfx/game_music.ogg");
     game_music.setLoop(true);
     game_music.setVolume(50.f);
     game_music.play();
-    Base Base;
+    // Classes
     Player Player;
+    Base Base;
     Enemy Enemies;
     drop drops;
+    HUD hud;
     // Vetores
     sf::Vector2f playerCenter;
     sf::Vector2f mousePosWindow;
@@ -35,11 +49,12 @@ int main() {
     sf::Vector2f aimDirNormEnemy;
     sf::Vector2f aimDirEnemyMov;
     sf::Vector2f aimDirNormEnemyMov;
-
+    // Clock
     sf::Clock clock;
 
     // Loop do jogo
     while (window.isOpen()) {
+        
         float dt = clock.restart().asSeconds();
 
         // Atualização
@@ -54,7 +69,7 @@ int main() {
         Player.lookAtMouse(window);
         Player.updateVelocity();
         Player.checkCollisions();
-        Player.updateBullets(Enemies.showVector(), dt);
+        Player.updateBullets(Enemies.showVector(), dt, DropTextures);
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->updateBulletsEnemy(dt, Player, Base);
         }
@@ -73,7 +88,7 @@ int main() {
                 if (lengthEnemy != 0) {
                     aimDirNormEnemy = aimDirEnemy / lengthEnemy;
                 }
-                it->shoot(aimDirNormEnemy, dt);
+                it->shoot(aimDirNormEnemy, dt, &EnemyBulletTexture);
             }
         }
 
@@ -81,6 +96,7 @@ int main() {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
+                Enemies.clearAll();
                 window.close();
             }
             if (event.type == sf::Event::KeyPressed) {
@@ -95,12 +111,14 @@ int main() {
         }
 
         // Desenho
+    
         window.clear();
         window.draw(Background);
         window.draw(Base.show());
-        Enemies.Spawner(); // Chama o Spawner para criar os inimigos
+        Enemies.Spawner(&EnemyTexture); // Chama o Spawner para criar os inimigos
         Enemies.DrawEnemies(window); // Desenha os inimigos na janela
-        Player.drawBullets(window);
+        Player.drawBullets(window);   
+    
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->drawBulletsEnemy(window);
         }
@@ -112,7 +130,10 @@ int main() {
             float lengthTemp = sqrt(pow(aimDirEnemyMov.x, 2) + pow(aimDirEnemyMov.y, 2));
             aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
             it->UpdateVelocity(dt, aimDirNormEnemyMov);
+            it->lookAtPlayer(window, Player.getPosition());
         }
+        hud.update(Player, Base);
+        hud.draw(window);
         drops.checkUndraw();
         window.display();
     }

@@ -5,6 +5,9 @@
 bool Player::initTexture()   {
     if (!this->PlayerTexture.loadFromFile("gfx/Ship.png"))
         return 1;
+    
+    if (!this->PlayerBullet.loadFromFile("gfx/Player_bullet.png"))
+        return 1;
 
     this->PlayerShape.setTexture(&this->PlayerTexture);
     return 0;
@@ -29,7 +32,9 @@ Player::Player()    {
     this->initTexture();
 }
 
-Player::~Player()   {}
+Player::~Player()   {
+    this->bullets.clear();
+}
 
 sf::CircleShape Player::show()  {
     return this->PlayerShape;
@@ -99,7 +104,7 @@ void Player::shootBullet(sf::Vector2f aimDirNorm)   {
     }
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        Bullet newBullet(500, 50);
+        Bullet newBullet(500, 50, &this->PlayerBullet);
         newBullet.show().setPosition(this->PlayerShape.getPosition());
         newBullet.receiveVelocity(aimDirNorm * newBullet.showMaxspeed());
         bullets.push_back(newBullet);
@@ -107,7 +112,7 @@ void Player::shootBullet(sf::Vector2f aimDirNorm)   {
     }
 }
 
-void Player::updateBullets(std::vector<Enemy> &enemies, float dt) {
+void Player::updateBullets(std::vector<Enemy> &enemies, float dt, sf::Texture *DropTextures) {
     for (std::vector<Bullet>::iterator bulletIt = bullets.begin(); bulletIt != bullets.end(); ) {
         bulletIt->update(dt);
         if (bulletIt->show().getPosition().x < 0 || bulletIt->show().getPosition().x > 800.f
@@ -118,7 +123,7 @@ void Player::updateBullets(std::vector<Enemy> &enemies, float dt) {
             for (std::vector<Enemy>::iterator enemyIt = enemies.begin(); enemyIt != enemies.end(); ++enemyIt) {
                 if (bulletIt->show().getGlobalBounds().intersects(enemyIt->show().getGlobalBounds())) {
                     bulletIt = bullets.erase(bulletIt);
-                    enemyIt->showDrop().spawn(enemyIt->show().getPosition(), enemyIt->showDrop());
+                    enemyIt->showDrop().spawn(enemyIt->show().getPosition(), enemyIt->showDrop(), DropTextures);
                     enemies.erase(enemyIt);
                     bulletRemoved = true;
                     break;
@@ -163,3 +168,22 @@ void Player::lookAtMouse(sf::RenderWindow &window){
 
     this->PlayerShape.setRotation(rotation);
 }
+<<<<<<< HEAD
+=======
+
+sf::Vector2f Player::getPosition()  {
+    return this->PlayerShape.getPosition();
+}
+
+float Player::showLife(){
+    return this->life;
+}
+
+float Player::showAmmo(){
+    return this->ammo;
+}
+
+float Player::showXp(){
+    return this->xp;
+}
+>>>>>>> main
