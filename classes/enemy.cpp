@@ -146,7 +146,7 @@ void Enemy::clearAll()  {
 
 void Enemy::checkPlayer(Player& player){
     for(std::vector<Enemy>::iterator it = enemies.begin(); it != enemies.end();){
-        if(it->show().getGlobalBounds().intersects(player.show().getGlobalBounds())){
+        if(it->show().getGlobalBounds().intersects(player.showHitbox().getGlobalBounds())){
             player.takeDamage(25.f);
             it = enemies.erase(it);
         }
