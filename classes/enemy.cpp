@@ -143,3 +143,27 @@ void Enemy::clearAll()  {
     bullets.clear();
     enemies.clear();
 }
+
+void Enemy::checkPlayer(Player& player){
+    for(std::vector<Enemy>::iterator it = enemies.begin(); it != enemies.end();){
+        if(it->show().getGlobalBounds().intersects(player.show().getGlobalBounds())){
+            player.takeDamage(25.f);
+            it = enemies.erase(it);
+        }
+        else{
+            it++;
+        }
+    }
+}
+
+void Enemy::checkBase(Base& base){
+    for(std::vector<Enemy>::iterator it = enemies.begin(); it != enemies.end();){
+            if(it->show().getGlobalBounds().intersects(base.show().getGlobalBounds())){
+                base.takeDamage(25.f);
+                it = enemies.erase(it);
+            }
+            else{
+                it++;
+            }
+    }
+}

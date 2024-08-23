@@ -37,6 +37,8 @@ class Enemy {
         void drawBulletsEnemy(sf::RenderWindow& window);
         drop& showDrop();
         void lookAtPlayer(sf::RenderWindow& window, sf::Vector2f playerPos);
+        void checkPlayer(Player& player);
+        void checkBase(Base& base);
 };
 
 #endif

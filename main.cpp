@@ -69,6 +69,8 @@ int main() {
         Player.lookAtMouse(window);
         Player.updateVelocity();
         Player.checkCollisions();
+        Enemies.checkBase(Base);
+        Enemies.checkPlayer(Player);
         Player.updateBullets(Enemies.showVector(), dt, DropTextures);
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->updateBulletsEnemy(dt, Player, Base);
