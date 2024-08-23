@@ -73,6 +73,7 @@ int main() {
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->updateBulletsEnemy(dt, Player, Base);
         }
+        drops.isTaken(Player);
 
         playerCenter = Player.show().getPosition();
         mousePosWindow = sf::Vector2f(sf::Mouse::getPosition(window));

@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <cstdlib>
-//lembrar de mudar makefile
+#include "../headers/player.hpp"
+
 class drop{
     private:
         float life;
@@ -25,7 +26,9 @@ class drop{
         void drawDrops(sf::RenderWindow& window);
         float checkTime();
         void checkUndraw();
+        void isTaken(Player& player);
         std::vector<drop>& showVector();
+        int showDropType();
 };
 
 #endif

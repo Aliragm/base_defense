@@ -44,6 +44,7 @@ class Player    {
         bool isAlive();
         void lookAtMouse(sf::RenderWindow &window);
         sf::Vector2f getPosition();
+        void receiveDrop(int dropType);
 };
 
 #endif

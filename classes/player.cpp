@@ -184,3 +184,12 @@ float Player::showAmmo(){
 float Player::showXp(){
     return this->xp;
 }
+
+void Player::receiveDrop(int dropType){
+    switch(dropType){
+        case 1: this->ammo += 5; break;
+        case 2: this->life += 25; break;
+        case 3: this->xp += 10; break;
+    }
+}
+
