@@ -39,7 +39,8 @@ std::vector<Enemy>& Enemy::showVector() {
 }
 
 void Enemy::Spawner(sf::Texture *enemyTexture) {
-    if (spawnClock.getElapsedTime().asSeconds() >= 2.0f && enemies.size() < 20) { // Verifica se passaram 2 segundos
+    float spawnRand = (std::rand() % 3) + 2;
+    if (spawnClock.getElapsedTime().asSeconds() >= spawnRand && enemies.size() < 20) { // Verifica se passaram 2 segundos
         Enemy newEnemy(enemyTexture);
         int retangleSide = std::rand() % 4;
 
