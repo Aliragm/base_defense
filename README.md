@@ -1,7 +1,7 @@
 
 # BaseDefense
 
-**BaseDefense** é um jogo simples de defesa de base, desenvolvido utilizando a biblioteca [SFML](https://www.sfml-dev.org/). O objetivo é defender sua base contra ondas de inimigos, utilizando um sistema de HUD para exibir informações como vida, munição, e experiência (XP). 
+**BaseDefense** é um jogo simples de defesa de base, desenvolvido utilizando a biblioteca [SFML](https://www.sfml-dev.org/). O objetivo é defender sua base contra ondas de inimigos. 
 
 ## Sumário
 
