@@ -17,6 +17,7 @@ class Base : public sf::RectangleShape  {
         float showHealth();
         void takeDamage(float damage);
         bool isAlive();
+        void getCured();
 };
 
 

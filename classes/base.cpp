@@ -39,3 +39,7 @@ bool Base::isAlive(){
         return true;
     }
 }
+
+void Base::getCured(){
+    this->health = 1000.f;
+}

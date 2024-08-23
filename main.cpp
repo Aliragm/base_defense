@@ -74,6 +74,7 @@ int main() {
             it->updateBulletsEnemy(dt, Player, Base);
         }
         drops.isTaken(Player);
+        Player.checkXP(Base);
 
         playerCenter = Player.show().getPosition();
         mousePosWindow = sf::Vector2f(sf::Mouse::getPosition(window));

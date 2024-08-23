@@ -7,6 +7,7 @@
 #include <vector>
 
 class Enemy;
+class Base;
 
 class Player    {
     private:
@@ -45,6 +46,7 @@ class Player    {
         void lookAtMouse(sf::RenderWindow &window);
         sf::Vector2f getPosition();
         void receiveDrop(int dropType);
+        void checkXP(Base& Base);
 };
 
 #endif

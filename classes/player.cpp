@@ -1,5 +1,6 @@
 #include "../headers/player.hpp"
 #include "../headers/enemy.hpp"
+#include "../headers/base.hpp"
 #include <cmath>
 
 bool Player::initTexture()   {
@@ -193,3 +194,9 @@ void Player::receiveDrop(int dropType){
     }
 }
 
+void Player::checkXP(Base& Base){
+    if(this->xp >= 100.f){
+        Base.getCured();
+        this->xp = 0;
+    }
+}
