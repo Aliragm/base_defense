@@ -21,19 +21,23 @@
 
 - **SFML 2.6.1** ou superior
 - **C++11** ou superior
-- Um compilador compatível com C++ (como `g++` ou `clang++`)
+- Um compilador compatível com C++ (`g++` para Windows/Linux e `clang++` para macOS)
 
 ## Instalação
 
 1. **Clone o repositório:**
 
-2. **Compile o projeto usando o Makefile:**
-
     ```bash
-    make
+    git clone https://github.com/Aliragm/base_defense.git
     ```
 
-3. **Execute o jogo:**
+3. **Compile o projeto usando o Makefile:**
+
+    ```bash
+    make project
+    ```
+
+4. **Execute o jogo:**
 
     ```bash
     ./project
