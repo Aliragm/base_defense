@@ -49,5 +49,6 @@
 
 ## Autores
 
-| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/22747917?v=4" width=115><br><sub>André Lira</sub>](https://github.com/Aliragm) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/12147973?v=4" width=115><br><sub>Filipe F. Campos</sub>](https://github.com/FilipeFCampos) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/76632121?v=4" width=115><br><sub>Ulisses Damasceno</sub>](https://github.com/Ulissesdamasceno7) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/70951772?v=4" width=115><br><sub>João Guilherme</sub>](https://github.com/J0110G) |
+| [<img src="https://avatars.githubusercontent.com/u/140771656?v=4" width=115><br><sub>André Lira</sub>](https://github.com/Aliragm) | [<img src="https://avatars.githubusercontent.com/u/79873886?v=4" width=115><br><sub>Filipe F. Campos</sub>](https://github.com/FilipeFCampos) | [<img src="https://avatars.githubusercontent.com/u/144023866?v=4" width=115><br><sub>Ulisses Damasceno</sub>](https://github.com/Ulissesdamasceno7) | [<img src="https://avatars.githubusercontent.com/u/144193518?v=4" width=115><br><sub>João Guilherme</sub>](https://github.com/J0110G) |
 | :---: | :---: | :---: | :---: |
+
