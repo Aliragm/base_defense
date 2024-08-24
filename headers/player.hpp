@@ -16,6 +16,7 @@ class Player    {
         Bullet b1;
         std::vector<Bullet> bullets;
         sf::CircleShape PlayerShape;
+        sf::CircleShape MouseTarget;
         sf::Texture PlayerTexture;
         sf::Texture PlayerBullet;
         bool up;
@@ -39,6 +40,8 @@ class Player    {
         void drawBullets(sf::RenderWindow &window);
         void lookAtMouse(sf::RenderWindow &window);
         sf::Vector2f getPosition();
+        void updateAim(sf::RenderWindow& window);
+        void drawAim(sf::RenderWindow& window);
 };
 
 #endif

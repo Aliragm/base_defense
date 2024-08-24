@@ -16,6 +16,7 @@ int main() {
     std::srand(time(NULL));
     // Variáveis
     sf::RenderWindow window(sf::VideoMode(800, 600), "BaseDefense");
+    window.setMouseCursorVisible(false);
     sf::RectangleShape Background(sf::Vector2f(800.f, 600.f));
     Background.setFillColor(sf::Color::White);
     // Inicialização de algumas texturas
@@ -63,6 +64,7 @@ int main() {
         Player.lookAtMouse(window);
         Player.updateVelocity();
         Player.checkCollisions();
+        Player.updateAim(window);
         Player.updateBullets(Enemies.showVector(), dt, DropTextures);
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             it->updateBulletsEnemy(dt);
@@ -118,6 +120,7 @@ int main() {
         }
         drops.drawDrops(window);
         window.draw(Player.show());
+        Player.drawAim(window);
         //não está otimizado, porém foi assim que eu pensei e consegui
         for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
             aimDirEnemyMov = Player.show().getPosition() - it->showPos();

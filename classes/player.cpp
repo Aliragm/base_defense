@@ -24,6 +24,10 @@ Player::Player()    {
     this->PlayerShape.setRadius(30.f);
     this->PlayerShape.setOrigin(sf::Vector2f(30.f, 30.f));
     this->PlayerShape.setPosition(sf::Vector2f(400.f, 300.f));
+    this->MouseTarget.setRadius(5.f);
+    this->MouseTarget.setOrigin(sf::Vector2f(2.5f, 2.5f));
+    this->MouseTarget.setFillColor(sf::Color::Cyan);
+    this->MouseTarget.setOutlineColor(sf::Color::Black);
     this->initTexture();
 }
 
@@ -156,4 +160,12 @@ float Player::showAmmo(){
 
 float Player::showXp(){
     return this->xp;
+}
+
+void Player::updateAim(sf::RenderWindow& window){
+    this->MouseTarget.setPosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+}
+
+void Player::drawAim(sf::RenderWindow& window){
+    window.draw(this->MouseTarget);
 }
