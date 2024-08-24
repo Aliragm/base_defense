@@ -6,6 +6,9 @@
 #include "bullet.hpp"
 #include "drops.hpp"
 
+class Player;
+class Base;
+
 class Enemy {
     private:
         float life;
@@ -29,11 +32,13 @@ class Enemy {
         static void DrawEnemies(sf::RenderWindow& window);
         const sf::Vector2f& showPos();
         void shoot(sf::Vector2f aimDirNormEnemy, float dt, sf::Texture *EnemyBullet);
-        void updateBulletsEnemy(float dt);
+        void updateBulletsEnemy(float dt, Player& player, Base& base);
         void clearAll();
         void drawBulletsEnemy(sf::RenderWindow& window);
         drop& showDrop();
         void lookAtPlayer(sf::RenderWindow& window, sf::Vector2f playerPos);
+        void checkPlayer(Player& player);
+        void checkBase(Base& base);
 };
 
 #endif

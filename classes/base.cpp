@@ -9,7 +9,7 @@ bool Base::initTexture()   {
 }
 
 Base::Base()    {
-    this->health = 100.f;
+    this->health = 1000.f;
     this->structure.setSize(sf::Vector2f(175.f, 175.f));
     this->structure.setOrigin(sf::Vector2f(87.5f, 87.5f));
     this->structure.setPosition(sf::Vector2f(400.f, 300.f));
@@ -25,4 +25,21 @@ sf::RectangleShape Base::show() {
 
 float Base::showHealth(){
     return this->health;
+}
+
+void Base::takeDamage(float damage){
+    this->health -= damage;
+}
+
+bool Base::isAlive(){
+    if(health <= 0){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+void Base::getCured(){
+    this->health = 1000.f;
 }

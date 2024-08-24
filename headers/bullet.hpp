@@ -10,13 +10,16 @@ class Bullet {
         float maxSpeed;
         sf::RectangleShape bulletShape;
         sf::Texture BulletTextures;
+        bool isEnemy;
     public:
         Bullet();
-        Bullet(float maxSpeed, float damage, sf::Texture *BulletTextures);
+        Bullet(float maxSpeed, float damage, sf::Texture *BulletTextures, bool isEnemy = false);
         ~Bullet();
         sf::RectangleShape& show();
         void receiveVelocity(sf::Vector2f velocityReceived);
         float showMaxspeed();
+        float showDamage();
+        bool showIsEnemy();
         sf::Vector2f showSpeed();
         void update(float dt);
 };

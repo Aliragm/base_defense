@@ -8,8 +8,6 @@
 #include "headers/enemy.hpp"
 #include "headers/drops.hpp"
 #include "headers/HUD.hpp"
-
-// clang++ prototipo.cpp -o protipo -I/usr/local/Cellar/sfml/2.6.1/include -L/usr/local/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
 // At the beggining only god and I knew how this code worked. Now only god knows.
 
 int main() {
@@ -59,7 +57,7 @@ int main() {
     // Loop do jogo
     while (window.isOpen()) {
 
-        if (Player.showLife() <= 0 || Base.showHealth() <= 0)   {
+        if (!Player.isAlive() || !Base.isAlive())   {
             gameOver = true;
             hud.gameOverScreen(window);
             window.display();
@@ -93,9 +91,13 @@ int main() {
             Player.checkCollisions();
             Player.updateAim(window);
             Player.updateBullets(Enemies.showVector(), dt, DropTextures);
+            Enemies.checkBase(Base);
+            Enemies.checkPlayer(Player);
             for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
-                it->updateBulletsEnemy(dt);
+                it->updateBulletsEnemy(dt, Player, Base);
             }
+            drops.isTaken(Player);
+            Player.checkXP(Base);
 
             playerCenter = Player.show().getPosition();
             mousePosWindow = sf::Vector2f(sf::Mouse::getPosition(window));

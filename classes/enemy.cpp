@@ -1,5 +1,7 @@
 #include "../headers/enemy.hpp"
 #include <cmath>
+#include "../headers/player.hpp"
+#include "../headers/base.hpp"
 
 std::vector<Enemy> Enemy::enemies;
 sf::Clock Enemy::spawnClock; // Inicializa o relógio
@@ -84,23 +86,31 @@ const sf::Vector2f& Enemy::showPos() {
 }
 
 void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt, sf::Texture *EnemyBullet) {
-    // Adicionei um intervalo de tempo para os disparos
-    if (shootClock.getElapsedTime().asSeconds() >= 1.0f) { // Ajuste o intervalo conforme necessário
-        Bullet newBullet(200, 50, EnemyBullet);
+    if (this->shootClock.getElapsedTime().asSeconds() >= 1.0f) { // Tempo de recarga individual
+        Bullet newBullet(200, 50, EnemyBullet, true);
         newBullet.show().setPosition(this->enemyShape.getPosition());
         newBullet.receiveVelocity(aimDirNormEnemy * newBullet.showMaxspeed());
         bullets.push_back(newBullet);
-        shootClock.restart(); // Reinicia o relógio após disparar uma bala
+        this->shootClock.restart(); // Reinicia o relógio para este inimigo
     }
 }
 
-void Enemy::updateBulletsEnemy(float dt) {
+void Enemy::updateBulletsEnemy(float dt, Player& player, Base& base) {
     for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ) {
         it->update(dt);
         if (it->show().getPosition().x < 0 || it->show().getPosition().x > 800.f
             || it->show().getPosition().y < 0 || it->show().getPosition().y > 600.f) {
             it = bullets.erase(it);
-        } else {
+        }
+        else if(it->showIsEnemy() == true && it->show().getGlobalBounds().intersects(player.showHitbox().getGlobalBounds())){
+            player.takeDamage(it->showDamage());
+            it = bullets.erase(it);
+        }
+        else if(it->showIsEnemy() == true && it->show().getGlobalBounds().intersects(base.show().getGlobalBounds())){
+            base.takeDamage(it->showDamage());
+            it = bullets.erase(it);
+        } 
+        else {
             ++it;
         }
     }
@@ -132,4 +142,28 @@ void Enemy::lookAtPlayer(sf::RenderWindow& window, sf::Vector2f playerPos)   {
 void Enemy::clearAll()  {
     bullets.clear();
     enemies.clear();
+}
+
+void Enemy::checkPlayer(Player& player){
+    for(std::vector<Enemy>::iterator it = enemies.begin(); it != enemies.end();){
+        if(it->show().getGlobalBounds().intersects(player.showHitbox().getGlobalBounds())){
+            player.takeDamage(25.f);
+            it = enemies.erase(it);
+        }
+        else{
+            it++;
+        }
+    }
+}
+
+void Enemy::checkBase(Base& base){
+    for(std::vector<Enemy>::iterator it = enemies.begin(); it != enemies.end();){
+            if(it->show().getGlobalBounds().intersects(base.show().getGlobalBounds())){
+                base.takeDamage(25.f);
+                it = enemies.erase(it);
+            }
+            else{
+                it++;
+            }
+    }
 }

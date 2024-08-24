@@ -65,6 +65,31 @@ float drop::checkTime(){
     return this->lifeClock.getElapsedTime().asSeconds();
 }
 
+int drop::showDropType(){
+    if(this->isAmmo){
+        return 1;
+    }
+    else if(this->isLife){
+        return 2;
+    }
+    else if(this->isXp){
+        return 3;
+    }
+}
+
+void drop::isTaken(Player& Player){
+    for (std::vector<drop>::iterator it = drops.begin(); it != drops.end(); ) {
+        if(Player.showHitbox().getGlobalBounds().intersects(it->show().getGlobalBounds())){
+            Player.receiveDrop(it->showDropType());
+            it = drops.erase(it);
+        }
+        else{
+            it++;
+        }
+    }
+}
+
+
 void drop::checkUndraw(){
     for (std::vector<drop>::iterator it = drops.begin(); it != drops.end(); ) {
         if (it->checkTime() >= 5.0f) {
