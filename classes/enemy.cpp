@@ -86,13 +86,12 @@ const sf::Vector2f& Enemy::showPos() {
 }
 
 void Enemy::shoot(sf::Vector2f aimDirNormEnemy, float dt, sf::Texture *EnemyBullet) {
-    // Adicionei um intervalo de tempo para os disparos
-    if (shootClock.getElapsedTime().asSeconds() >= 1.0f) { // Ajuste o intervalo conforme necessário
+    if (this->shootClock.getElapsedTime().asSeconds() >= 1.0f) { // Tempo de recarga individual
         Bullet newBullet(200, 50, EnemyBullet, true);
         newBullet.show().setPosition(this->enemyShape.getPosition());
         newBullet.receiveVelocity(aimDirNormEnemy * newBullet.showMaxspeed());
         bullets.push_back(newBullet);
-        shootClock.restart(); // Reinicia o relógio após disparar uma bala
+        this->shootClock.restart(); // Reinicia o relógio para este inimigo
     }
 }
 
