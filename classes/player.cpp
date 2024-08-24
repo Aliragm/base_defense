@@ -89,7 +89,7 @@ void Player::checkCollisions()  {
 
 void Player::shootBullet(sf::Vector2f aimDirNorm)   {
     if(ammo == 0){
-        std::cout << "n tem bala" << std::endl;
+        std::cout << "No ammo left!!" << std::endl;
         return;
     }
 
