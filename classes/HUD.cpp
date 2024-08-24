@@ -24,24 +24,28 @@ HUD::HUD()
     healthText.setCharacterSize(20); 
     healthText.setFillColor(sf::Color::White);
     healthText.setOutlineColor(sf::Color::Black);
+    healthText.setOutlineThickness(1.f);
     healthText.setPosition(10, 10); 
 
     lifeText.setFont(font);
     lifeText.setCharacterSize(20); 
     lifeText.setFillColor(sf::Color::White);
     lifeText.setOutlineColor(sf::Color::Black);
+    lifeText.setOutlineThickness(1.f);
     lifeText.setPosition(10, 40); 
 
     ammoText.setFont(font);
     ammoText.setCharacterSize(20); 
     ammoText.setFillColor(sf::Color::White);
     ammoText.setOutlineColor(sf::Color::Black);
+    ammoText.setOutlineThickness(1.f);
     ammoText.setPosition(10, 70); 
 
     xpText.setFont(font);
     xpText.setCharacterSize(20); 
     xpText.setFillColor(sf::Color::White);
     xpText.setOutlineColor(sf::Color::Black);
+    xpText.setOutlineThickness(1.f);
     xpText.setPosition(10, 100); 
 
     gameOver.setFont(font);
