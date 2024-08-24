@@ -10,8 +10,8 @@ bool Base::initTexture()   {
 
 Base::Base()    {
     this->health = 100.f;
-    this->structure.setSize(sf::Vector2f(150.f, 150.f));
-    this->structure.setOrigin(sf::Vector2f(75.f, 75.f));
+    this->structure.setSize(sf::Vector2f(175.f, 175.f));
+    this->structure.setOrigin(sf::Vector2f(87.5f, 87.5f));
     this->structure.setPosition(sf::Vector2f(400.f, 300.f));
     this->initTexture();
     this->structure.setTexture(&this->BaseTexture);

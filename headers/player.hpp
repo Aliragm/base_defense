@@ -9,9 +9,9 @@
 
 class Player    {
     private:
-        float life;
         float xp;
         int ammo;
+        float life;
         sf::Vector2f velocity;
         Bullet b1;
         std::vector<Bullet> bullets;

@@ -54,40 +54,17 @@ int main() {
     sf::Vector2f aimDirNormEnemyMov;
     // Clock
     sf::Clock clock;
+    bool gameOver = false;
 
     // Loop do jogo
     while (window.isOpen()) {
+
+        if (Player.showLife() <= 0 || Base.showHealth() <= 0)   {
+            gameOver = true;
+            hud.gameOverScreen(window);
+            window.display();
+        }
         
-        float dt = clock.restart().asSeconds();
-
-        // Atualização
-        Player.lookAtMouse(window);
-        Player.updateVelocity();
-        Player.checkCollisions();
-        Player.updateAim(window);
-        Player.updateBullets(Enemies.showVector(), dt, DropTextures);
-        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
-            it->updateBulletsEnemy(dt);
-        }
-
-        playerCenter = Player.show().getPosition();
-        mousePosWindow = sf::Vector2f(sf::Mouse::getPosition(window));
-        aimDir = mousePosWindow - playerCenter;
-        float length = sqrt(pow(aimDir.x, 2) + pow(aimDir.y, 2));
-        aimDirNorm = aimDir / length;
-
-        // Inimigos atiram
-        if (!Enemies.showVector().empty()) {
-            for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
-                aimDirEnemy = playerCenter - it->showPos();
-                float lengthEnemy = sqrt(pow(aimDirEnemy.x, 2) + pow(aimDirEnemy.y, 2));
-                if (lengthEnemy != 0) {
-                    aimDirNormEnemy = aimDirEnemy / lengthEnemy;
-                }
-                it->shoot(aimDirNormEnemy, dt, &EnemyBulletTexture);
-            }
-        }
-
         // Eventos
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -95,44 +72,77 @@ int main() {
                 Enemies.clearAll();
                 window.close();
             }
-            if (event.type == sf::Event::KeyPressed) {
+            if (event.type == sf::Event::KeyPressed && gameOver == false) {
                 Player.processEvents(event.key.code, true);
             }
-            if (event.type == sf::Event::KeyReleased) {
+            if (event.type == sf::Event::KeyReleased && gameOver == false) {
                 Player.processEvents(event.key.code, false);
             }
-            if (event.type == sf::Event::MouseButtonPressed) {
+            if (event.type == sf::Event::MouseButtonPressed && gameOver == false) {
                 Player.shootBullet(aimDirNorm);
             }
         }
 
-        // Desenho
-    
-        window.clear();
-        window.draw(Background);
-        window.draw(Base.show());
-        Enemies.Spawner(&EnemyTexture); // Chama o Spawner para criar os inimigos
-        Enemies.DrawEnemies(window); // Desenha os inimigos na janela
-        Player.drawBullets(window);   
-    
-        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
-            it->drawBulletsEnemy(window);
+        if (gameOver == false)  {
+
+            float dt = clock.restart().asSeconds();
+
+            // Atualização
+            Player.lookAtMouse(window);
+            Player.updateVelocity();
+            Player.checkCollisions();
+            Player.updateAim(window);
+            Player.updateBullets(Enemies.showVector(), dt, DropTextures);
+            for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+                it->updateBulletsEnemy(dt);
+            }
+
+            playerCenter = Player.show().getPosition();
+            mousePosWindow = sf::Vector2f(sf::Mouse::getPosition(window));
+            aimDir = mousePosWindow - playerCenter;
+            float length = sqrt(pow(aimDir.x, 2) + pow(aimDir.y, 2));
+            aimDirNorm = aimDir / length;
+
+            // Inimigos atiram
+            if (!Enemies.showVector().empty()) {
+                for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+                    aimDirEnemy = playerCenter - it->showPos();
+                    float lengthEnemy = sqrt(pow(aimDirEnemy.x, 2) + pow(aimDirEnemy.y, 2));
+                    if (lengthEnemy != 0) {
+                        aimDirNormEnemy = aimDirEnemy / lengthEnemy;
+                    }
+                    it->shoot(aimDirNormEnemy, dt, &EnemyBulletTexture);
+                }
+            }
+
+
+            // Desenho
+            window.clear();
+            window.draw(Background);
+            window.draw(Base.show());
+            Enemies.Spawner(&EnemyTexture); // Chama o Spawner para criar os inimigos
+            Enemies.DrawEnemies(window); // Desenha os inimigos na janela
+            Player.drawBullets(window);   
+        
+            for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+                it->drawBulletsEnemy(window);
+            }
+            drops.drawDrops(window);
+            window.draw(Player.show());
+            Player.drawAim(window);
+            //não está otimizado, porém foi assim que eu pensei e consegui
+            for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
+                aimDirEnemyMov = Player.show().getPosition() - it->showPos();
+                float lengthTemp = sqrt(pow(aimDirEnemyMov.x, 2) + pow(aimDirEnemyMov.y, 2));
+                aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
+                it->UpdateVelocity(dt, aimDirNormEnemyMov);
+                it->lookAtPlayer(window, Player.getPosition());
+            }
+            hud.update(Player, Base);
+            hud.draw(window);
+            drops.checkUndraw();
+            window.display();
         }
-        drops.drawDrops(window);
-        window.draw(Player.show());
-        Player.drawAim(window);
-        //não está otimizado, porém foi assim que eu pensei e consegui
-        for (std::vector<Enemy>::iterator it = Enemies.showVector().begin(); it != Enemies.showVector().end(); ++it) {
-            aimDirEnemyMov = Player.show().getPosition() - it->showPos();
-            float lengthTemp = sqrt(pow(aimDirEnemyMov.x, 2) + pow(aimDirEnemyMov.y, 2));
-            aimDirNormEnemyMov = aimDirEnemyMov / lengthTemp;
-            it->UpdateVelocity(dt, aimDirNormEnemyMov);
-            it->lookAtPlayer(window, Player.getPosition());
-        }
-        hud.update(Player, Base);
-        hud.draw(window);
-        drops.checkUndraw();
-        window.display();
     }
 
     return 0;
