@@ -75,6 +75,8 @@ int drop::showDropType(){
     else if(this->isXp){
         return 3;
     }
+
+    return 0;
 }
 
 void drop::isTaken(Player& Player){
