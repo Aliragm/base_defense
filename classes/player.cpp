@@ -30,6 +30,10 @@ Player::Player()    {
     this->Hitbox.setFillColor(sf::Color::Transparent);
     this->Hitbox.setOrigin(sf::Vector2f(20.f,20.f));
     this->Hitbox.setPosition(sf::Vector2f(400.f, 300.f));
+    this->MouseTarget.setRadius(5.f);
+    this->MouseTarget.setOrigin(sf::Vector2f(2.5f, 2.5f));
+    this->MouseTarget.setFillColor(sf::Color::Cyan);
+    this->MouseTarget.setOutlineColor(sf::Color::Black);
     this->initTexture();
 }
 
@@ -100,7 +104,7 @@ void Player::checkCollisions()  {
 
 void Player::shootBullet(sf::Vector2f aimDirNorm)   {
     if(ammo == 0){
-        std::cout << "n tem bala" << std::endl;
+        std::cout << "No ammo left!!" << std::endl;
         return;
     }
 
@@ -199,4 +203,12 @@ void Player::checkXP(Base& Base){
         Base.getCured();
         this->xp = 0;
     }
+}
+
+void Player::updateAim(sf::RenderWindow& window){
+    this->MouseTarget.setPosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+}
+
+void Player::drawAim(sf::RenderWindow& window){
+    window.draw(this->MouseTarget);
 }

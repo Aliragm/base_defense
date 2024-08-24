@@ -8,7 +8,7 @@ HUD::HUD()
     : health(0.f),  
       life(0.f),
       ammo(0),
-      xp(0.f) 
+      xp(0.f)
 {
     // Carregar a fonte
     if (!font.loadFromFile("gfx/font.ttf")) {
@@ -43,6 +43,13 @@ HUD::HUD()
     xpText.setFillColor(sf::Color::White);
     xpText.setOutlineColor(sf::Color::Black);
     xpText.setPosition(10, 100); 
+
+    gameOver.setFont(font);
+    gameOver.setCharacterSize(50); 
+    gameOver.setFillColor(sf::Color::Yellow);
+    gameOver.setOutlineColor(sf::Color::Black);
+    gameOver.setOutlineThickness(2.f);
+    gameOver.setPosition(400, 300); 
 }
 
 // Método para atualizar as informações do HUD
@@ -79,3 +86,11 @@ void HUD::draw(sf::RenderWindow& window) {
     // Se você tiver outros elementos no HUD, desenhe-os aqui
 }
 
+void HUD::gameOverScreen(sf::RenderWindow& window)  {
+    std::ostringstream ossGameOver;
+    ossGameOver << "GAME\n  OVER";
+    gameOver.setString(ossGameOver.str());
+    sf::FloatRect rc = gameOver.getLocalBounds();
+    gameOver.setOrigin(rc.width/2, rc.height/2);
+    window.draw(gameOver);
+}

@@ -11,14 +11,15 @@ class Base;
 
 class Player    {
     private:
-        float life;
         float xp;
         int ammo;
+        float life;
         sf::Vector2f velocity;
         Bullet b1;
         std::vector<Bullet> bullets;
         sf::CircleShape PlayerShape;
         sf::RectangleShape Hitbox;
+        sf::CircleShape MouseTarget;
         sf::Texture PlayerTexture;
         sf::Texture PlayerBullet;
         bool up;
@@ -47,6 +48,8 @@ class Player    {
         sf::Vector2f getPosition();
         void receiveDrop(int dropType);
         void checkXP(Base& Base);
+        void updateAim(sf::RenderWindow& window);
+        void drawAim(sf::RenderWindow& window);
 };
 
 #endif
